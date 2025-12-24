@@ -9,7 +9,7 @@ from datetime import date
 GITHUB_USERNAME = "ShavirV"
 FULL_NAME = "Shavir Vallabh"
 EMPLOYER = "University of Pretoria"
-BIRTHDATE = date(2004, 02, 04)
+BIRTHDATE = date(2004, 2, 4)
 
 # =========================
 # GITHUB API SETUP
