@@ -94,8 +94,8 @@ def generate_svg(user):
     ]
 
     right_block = [
-        (f" "),
-        (f" "),
+        (f"\n", COLOR_USER),
+        (f"\n", COLOR_USER),
         (f"{GITHUB_USERNAME}@github", COLOR_USER),
         ("-----------------------", COLOR_SEPARATOR),
         (f"Name: {FULL_NAME}", COLOR_LABEL),
