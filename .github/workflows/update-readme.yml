@@ -2,7 +2,7 @@ name: Update Neofetch README
 
 on:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "0 0 * * *"  #daily
   workflow_dispatch:
 
 permissions:
@@ -21,7 +21,7 @@ jobs:
 
       - run: pip install requests
 
-      - name: Generate SVG
+      - name: Generate inline SVG in README
         run: python scripts/generate_readme.py
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -30,7 +30,6 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add neofetch.svg
+          git add README.md
           git diff --cached --quiet || git commit -m "Update neofetch SVG"
           git push
-
