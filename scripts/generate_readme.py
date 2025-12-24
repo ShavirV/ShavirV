@@ -12,9 +12,9 @@ BIRTHDATE = date(2005, 2, 4)
 
 # SVG styling
 FONT_FAMILY = "monospace"
-FONT_SIZE = 14
-LINE_HEIGHT = 20
-PADDING = 20
+FONT_SIZE = 15
+LINE_HEIGHT = 10
+PADDING = 10
 
 # Colors
 COLOR_LOGO = "#7aa2f7"
@@ -104,7 +104,7 @@ def generate_svg(user):
 
     lines = max(len(left_block), len(right_block))
     height = PADDING * 2 + lines * LINE_HEIGHT
-    width = 700
+    width = 800
 
     svg = [
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}">',
