@@ -2,31 +2,33 @@
 <rect width="100%" height="100%" fill="#1a1b26"/>
 <style>text { font-family: monospace; font-size: 15px; }</style>
 <text x="16" y="29" fill="#7aa2f7">shavi@ShavirPC:/mnt/c/Users/shavi$ neofetch</text>
-<text x="400" y="29" fill="#bb9af7">
-</text>
+<text x="400" y="29" fill="#bb9af7">ShavirV@github</text>
 <text x="16" y="42" fill="#7aa2f7">    :-::::.........................          </text>
-<text x="400" y="42" fill="#bb9af7">
-</text>
+<text x="400" y="42" fill="#565f89">-----------------------</text>
 <text x="16" y="55" fill="#7aa2f7">  :--:::.............................        </text>
-<text x="400" y="55" fill="#bb9af7">ShavirV@github</text>
+<text x="400" y="55" fill="#c92d22">Name:</text>
 <text x="16" y="68" fill="#7aa2f7"> :-::::................................      </text>
-<text x="400" y="68" fill="#565f89">-----------------------</text>
+<text x="400" y="68" fill="#50fa7b">Shavir Vallabh</text>
 <text x="16" y="81" fill="#7aa2f7"> -::::.............................+-..      </text>
-<text x="400" y="81" fill="#9ece6a">Name: Shavir Vallabh</text>
+<text x="400" y="81" fill="#c92d22">Host:</text>
 <text x="16" y="94" fill="#7aa2f7">.::::.............................==+=..     </text>
-<text x="400" y="94" fill="#9ece6a">Host: University of Pretoria</text>
+<text x="400" y="94" fill="#50fa7b">University of Pretoria</text>
 <text x="16" y="107" fill="#7aa2f7">.:::...............................*#+..     </text>
-<text x="400" y="107" fill="#9ece6a">Uptime: 20 years, 10 months, 20 days</text>
+<text x="400" y="107" fill="#c92d22">Uptime:</text>
 <text x="16" y="120" fill="#7aa2f7">.:::.........++*+:.......................    </text>
-<text x="400" y="120" fill="#9ece6a">Repos: 3</text>
+<text x="400" y="120" fill="#50fa7b">20 years, 10 months, 20 days</text>
 <text x="16" y="133" fill="#7aa2f7">.::.........=*+.*+.......................    </text>
-<text x="400" y="133" fill="#9ece6a">Followers: 4</text>
+<text x="400" y="133" fill="#c92d22">Repos:</text>
 <text x="16" y="146" fill="#7aa2f7">.::..........=**+........................    </text>
-<text x="400" y="146" fill="#9ece6a">Following: 7</text>
+<text x="400" y="146" fill="#50fa7b">3</text>
 <text x="16" y="159" fill="#7aa2f7">.::........................:----::::.....    </text>
+<text x="400" y="159" fill="#c92d22">Followers:</text>
 <text x="16" y="172" fill="#7aa2f7">.::.....................:============:..     </text>
+<text x="400" y="172" fill="#50fa7b">4</text>
 <text x="16" y="185" fill="#7aa2f7"> ::.................:-================..     </text>
+<text x="400" y="185" fill="#c92d22">Following:</text>
 <text x="16" y="198" fill="#7aa2f7"> .::...............-=============--=-..:----:</text>
+<text x="400" y="198" fill="#50fa7b">7</text>
 <text x="16" y="211" fill="#7aa2f7">   .:..............:========------:...::::::-</text>
 <text x="16" y="224" fill="#7aa2f7">     ................:--------::........:::::</text>
 <text x="16" y="237" fill="#7aa2f7">       .....................................:</text>
