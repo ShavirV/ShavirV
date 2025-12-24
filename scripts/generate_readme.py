@@ -49,6 +49,8 @@ def calculate_age(birthdate):
     )
 
 def svg_text(x, y, text, color):
+    #escape special XML chars
+    text = text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
     return f'<text x="{x}" y="{y}" fill="{color}">{text}</text>'
 
 def generate_svg(user):
