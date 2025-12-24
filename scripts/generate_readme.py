@@ -1,5 +1,6 @@
 import requests
 import os
+import re
 from datetime import date
 
 # =========================
@@ -16,7 +17,7 @@ FONT_SIZE = 14
 LINE_HEIGHT = 20
 PADDING = 20
 
-# Tokyo Night–ish palette
+# Colors
 COLOR_LOGO = "#7aa2f7"
 COLOR_LABEL = "#9ece6a"
 COLOR_VALUE = "#c0caf5"
@@ -24,42 +25,33 @@ COLOR_USER = "#bb9af7"
 COLOR_SEPARATOR = "#565f89"
 BG_COLOR = "#1a1b26"
 
-# =========================
-# GITHUB API
-# =========================
+# GitHub API
 TOKEN = os.environ["GITHUB_TOKEN"]
-
-HEADERS = {
-    "Authorization": f"Bearer {TOKEN}",
-    "Accept": "application/vnd.github+json"
-}
+HEADERS = {"Authorization": f"Bearer {TOKEN}", "Accept": "application/vnd.github+json"}
 
 def get_user_data():
-    r = requests.get(
-        f"https://api.github.com/users/{GITHUB_USERNAME}",
-        headers=HEADERS
-    )
+    r = requests.get(f"https://api.github.com/users/{GITHUB_USERNAME}", headers=HEADERS)
     r.raise_for_status()
     return r.json()
 
 def calculate_age(birthdate):
     today = date.today()
-    return today.year - birthdate.year - (
-        (today.month, today.day) < (birthdate.month, birthdate.day)
-    )
+    return today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
+
+def escape_svg_text(text):
+    return text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
 def svg_text(x, y, text, color):
-    #escape special XML chars
-    text = text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+    text = escape_svg_text(text)
     return f'<text x="{x}" y="{y}" fill="{color}">{text}</text>'
 
 def generate_svg(user):
     age = calculate_age(BIRTHDATE)
 
     left_block = [
-        r"      /\\_/\\",
-        r"     ( o.o )",
-        r"      > ^ <"
+        "      /\\_/\\",
+        "     ( o.o )",
+        "      > ^ <"
     ]
 
     right_block = [
@@ -84,29 +76,37 @@ def generate_svg(user):
     ]
 
     y = PADDING + LINE_HEIGHT
-
     for i in range(lines):
         if i < len(left_block):
             svg.append(svg_text(PADDING, y, left_block[i], COLOR_LOGO))
-
         if i < len(right_block):
             text, color = right_block[i]
             svg.append(svg_text(260, y, text, color))
-
         y += LINE_HEIGHT
 
     svg.append("</svg>")
     return "\n".join(svg)
 
+def update_readme(svg_content):
+    with open("README.md", "r", encoding="utf-8") as f:
+        content = f.read()
+
+    new_content = re.sub(
+        r"<!-- neofetch:start -->.*?<!-- neofetch:end -->",
+        f"<!-- neofetch:start -->\n{svg_content}\n<!-- neofetch:end -->",
+        content,
+        flags=re.DOTALL
+    )
+
+    with open("README.md", "w", encoding="utf-8") as f:
+        f.write(new_content)
+
 def main():
-    print("Generating neofetch SVG...")
+    print("Generating inline SVG for README...")
     user = get_user_data()
     svg = generate_svg(user)
-
-    with open("neofetch.svg", "w", encoding="utf-8") as f:
-        f.write(svg)
-
-    print("neofetch.svg written")
+    update_readme(svg)
+    print("README updated with inline SVG!")
 
 if __name__ == "__main__":
     main()
