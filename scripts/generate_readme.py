@@ -13,8 +13,8 @@ BIRTHDATE = date(2005, 2, 4)
 # SVG styling
 FONT_FAMILY = "monospace"
 FONT_SIZE = 15
-LINE_HEIGHT = 12
-PADDING = 15
+LINE_HEIGHT = 13
+PADDING = 16
 
 # Colors
 COLOR_LOGO = "#7aa2f7"
@@ -65,6 +65,7 @@ def generate_svg(user):
     age = calculate_age(BIRTHDATE)
 
     left_block = [
+"shavi@ShavirPC:/mnt/c/Users/shavi$ neofetch",
 "****++=========-----------------====++++++++%",
 "**+++=======----------------------===++++++++",
 "*++=======--------------------------==+++++++",
@@ -88,7 +89,9 @@ def generate_svg(user):
 "=========--------------------:--:-:-:-:------",
 "=======-------------------------:--:-:-:-:---",
 "=====-=------------------------:-:-::-:---:--",
-"====-=--------------:-:-:-:-:-:-:-::::-:::-:-"
+"====-=--------------:-:-:-:-:-:-:-::::-:::-:-",
+"                                             ",
+"shavi@ShavirPC:/mnt/c/Users/shavi$ sudo rm -rf / --no-preserve-root"
     ]
 
     right_block = [
