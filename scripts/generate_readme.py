@@ -13,8 +13,8 @@ BIRTHDATE = date(2005, 2, 4)
 # SVG styling
 FONT_FAMILY = "monospace"
 FONT_SIZE = 15
-LINE_HEIGHT = 10
-PADDING = 10
+LINE_HEIGHT = 12
+PADDING = 15
 
 # Colors
 COLOR_LOGO = "#7aa2f7"
@@ -118,7 +118,7 @@ def generate_svg(user):
             svg.append(svg_text(PADDING, y, left_block[i], COLOR_LOGO))
         if i < len(right_block):
             text, color = right_block[i]
-            svg.append(svg_text(260, y, text, color))
+            svg.append(svg_text(400, y, text, color))
         y += LINE_HEIGHT
 
     svg.append("</svg>")
