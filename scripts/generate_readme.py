@@ -55,7 +55,7 @@ def generate_svg(user):
     age = calculate_age(BIRTHDATE)
 
     left_block = [
-        r"      /\_/\",
+        r"      /\\_/\\",
         r"     ( o.o )",
         r"      > ^ <"
     ]
