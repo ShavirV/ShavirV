@@ -38,15 +38,19 @@ def calculate_age(birthdate):
 def build_neofetch_block(user):
     age = calculate_age(BIRTHDATE)
 
-    return f"""
-```text
-      /\_/\\
-     ( o.o )    {GITHUB_USERNAME}@github
-      > ^ <     -----------------------
-                 Name: {FULL_NAME}
-                 Host: {EMPLOYER}
-                 Uptime: {age}
-                 Repos: {user['public_repos']}
-                 Followers: {user['followers']}
-                 Following: {user['following']}
+    lines = [
+        "```text",
+        "      /\\_/\\",
+        "     ( o.o )    {}@github".format(GITHUB_USERNAME),
+        "      > ^ <     -----------------------",
+        "                 Name: {}".format(FULL_NAME),
+        "                 Host: {}".format(EMPLOYER),
+        "                 Uptime: {}".format(age),
+        "                 Repos: {}".format(user["public_repos"]),
+        "                 Followers: {}".format(user["followers"]),
+        "                 Following: {}".format(user["following"]),
+        "```"
+    ]
+
+    return "\n".join(lines)
 
