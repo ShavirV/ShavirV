@@ -41,16 +41,43 @@ def build_neofetch_block(user):
     lines = [
         "```text",
         "      /\\_/\\",
-        "     ( o.o )    {}@github".format(GITHUB_USERNAME),
+        f"     ( o.o )    {GITHUB_USERNAME}@github",
         "      > ^ <     -----------------------",
-        "                 Name: {}".format(FULL_NAME),
-        "                 Host: {}".format(EMPLOYER),
-        "                 Uptime: {}".format(age),
-        "                 Repos: {}".format(user["public_repos"]),
-        "                 Followers: {}".format(user["followers"]),
-        "                 Following: {}".format(user["following"]),
+        f"                 Name: {FULL_NAME}",
+        f"                 Host: {EMPLOYER}",
+        f"                 Uptime: {age}",
+        f"                 Repos: {user['public_repos']}",
+        f"                 Followers: {user['followers']}",
+        f"                 Following: {user['following']}",
         "```"
     ]
 
     return "\n".join(lines)
 
+def update_readme(neofetch_block):
+    with open("README.md", "r", encoding="utf-8") as f:
+        content = f.read()
+
+    new_content = re.sub(
+        r"<!-- neofetch:start -->.*?<!-- neofetch:end -->",
+        f"<!-- neofetch:start -->\n{neofetch_block}\n<!-- neofetch:end -->",
+        content,
+        flags=re.DOTALL
+    )
+
+    if content == new_content:
+        print("README unchanged (no diff)")
+    else:
+        print("README updated")
+
+    with open("README.md", "w", encoding="utf-8") as f:
+        f.write(new_content)
+
+def main():
+    print("Running neofetch README generator...")
+    user = get_user_data()
+    block = build_neofetch_block(user)
+    update_readme(block)
+
+if __name__ == "__main__":
+    main()
