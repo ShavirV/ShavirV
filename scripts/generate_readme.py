@@ -21,6 +21,8 @@ COLOR_LOGO = "#7aa2f7"
 COLOR_LABEL = "#9ece6a"
 COLOR_USER = "#bb9af7"
 COLOR_SEPARATOR = "#565f89"
+COLOR_LEFT = "#c92d22"
+COLOR_RIGHT = "#50fa7b"
 BG_COLOR = "#1a1b26"
 
 # GitHub API
@@ -94,16 +96,14 @@ def generate_svg(user):
     ]
 
     right_block = [
-        (f"\n", COLOR_USER),
-        (f"\n", COLOR_USER),
-        (f"{GITHUB_USERNAME}@github", COLOR_USER),
-        ("-----------------------", COLOR_SEPARATOR),
-        (f"Name: {FULL_NAME}", COLOR_LABEL),
-        (f"Host: {HOST}", COLOR_LABEL),
-        (f"Uptime: {age}", COLOR_LABEL),
-        (f"Repos: {user['public_repos']}", COLOR_LABEL),
-        (f"Followers: {user['followers']}", COLOR_LABEL),
-        (f"Following: {user['following']}", COLOR_LABEL),
+    (f"{GITHUB_USERNAME}@github", COLOR_USER),
+    ("-----------------------", COLOR_SEPARATOR),
+    ("Name:", COLOR_LEFT), (f"{FULL_NAME}", COLOR_RIGHT),
+    ("Host:", COLOR_LEFT), (f"{HOST}", COLOR_RIGHT),
+    ("Uptime:", COLOR_LEFT), (f"{age}", COLOR_RIGHT),
+    ("Repos:", COLOR_LEFT), (f"{user['public_repos']}", COLOR_RIGHT),
+    ("Followers:", COLOR_LEFT), (f"{user['followers']}", COLOR_RIGHT),
+    ("Following:", COLOR_LEFT), (f"{user['following']}", COLOR_RIGHT),
     ]
 
     lines = max(len(left_block), len(right_block))
