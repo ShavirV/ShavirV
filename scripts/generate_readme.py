@@ -1,6 +1,5 @@
 import requests
 import os
-import re
 from datetime import date
 
 # =========================
@@ -9,7 +8,7 @@ from datetime import date
 GITHUB_USERNAME = "ShavirV"
 FULL_NAME = "Shavir Vallabh"
 HOST = "University of Pretoria"
-BIRTHDATE = date(2004, 2, 4)
+BIRTHDATE = date(2005, 2, 4)
 
 # SVG styling
 FONT_FAMILY = "monospace"
@@ -20,7 +19,6 @@ PADDING = 20
 # Colors
 COLOR_LOGO = "#7aa2f7"
 COLOR_LABEL = "#9ece6a"
-COLOR_VALUE = "#c0caf5"
 COLOR_USER = "#bb9af7"
 COLOR_SEPARATOR = "#565f89"
 BG_COLOR = "#1a1b26"
@@ -34,9 +32,27 @@ def get_user_data():
     r.raise_for_status()
     return r.json()
 
-def calculate_age(birthdate):
+def calculate_age(birthdate: date):
     today = date.today()
-    return today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
+
+    # Start with difference in years, months, days
+    years = today.year - birthdate.year
+    months = today.month - birthdate.month
+    days = today.day - birthdate.day
+
+    # Adjust if days negative
+    if days < 0:
+        months -= 1
+        # Number of days in previous month
+        from calendar import monthrange
+        days += monthrange(today.year, (today.month - 1) or 12)[1]
+
+    # Adjust if months negative
+    if months < 0:
+        years -= 1
+        months += 12
+
+    return f"{years} years, {months} months, {days} days"
 
 def escape_svg_text(text):
     return text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
@@ -87,26 +103,44 @@ def generate_svg(user):
     svg.append("</svg>")
     return "\n".join(svg)
 
-def update_readme(svg_content):
-    with open("README.md", "r", encoding="utf-8") as f:
+def update_readme():
+    """Update README.md to reference the hosted neofetch.svg"""
+    readme_path = "README.md"
+    svg_url = f"https://raw.githubusercontent.com/{GITHUB_USERNAME}/ShavirV/main/neofetch.svg"
+
+    img_block = f'''
+<!-- neofetch:start -->
+<a href="https://github.com/{GITHUB_USERNAME}/ShavirV">
+  <img alt="{FULL_NAME}'s GitHub Profile README" src="{svg_url}" width="700"/>
+</a>
+<!-- neofetch:end -->
+'''.strip()
+
+    with open(readme_path, "r", encoding="utf-8") as f:
         content = f.read()
 
+    import re
     new_content = re.sub(
         r"<!-- neofetch:start -->.*?<!-- neofetch:end -->",
-        f"<!-- neofetch:start -->\n{svg_content}\n<!-- neofetch:end -->",
+        img_block,
         content,
         flags=re.DOTALL
     )
 
-    with open("README.md", "w", encoding="utf-8") as f:
+    with open(readme_path, "w", encoding="utf-8") as f:
         f.write(new_content)
 
 def main():
-    print("Generating inline SVG for README...")
+    print("Generating neofetch.svg...")
     user = get_user_data()
-    svg = generate_svg(user)
-    update_readme(svg)
-    print("README updated with inline SVG!")
+    svg_content = generate_svg(user)
+
+    with open("neofetch.svg", "w", encoding="utf-8") as f:
+        f.write(svg_content)
+
+    print("Updating README.md to reference hosted SVG...")
+    update_readme()
+    print("Done!")
 
 if __name__ == "__main__":
     main()
