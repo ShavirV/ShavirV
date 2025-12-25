@@ -24,9 +24,9 @@ SVG_WIDTH = 800
 # TERMINAL COLOR PALETTE
 # =========================
 BG_COLOR        = "#0c0c0c"
-COLOR_PROMPT    = "#16c60c"   # green
-COLOR_PATH      = "#3a96dd"   # blue
-COLOR_ASCII     = "#e74856"   # neofetch red
+COLOR_PROMPT    = "#16c60c"
+COLOR_PATH      = "#3a96dd"
+COLOR_ASCII     = "#e74856"
 COLOR_MUTED     = "#7a7a7a"
 COLOR_LABEL     = "#9ece6a"
 COLOR_VALUE     = "#d4d4d4"
@@ -77,9 +77,22 @@ def escape_svg_text(text: str):
             .replace(">", "&gt;")
     )
 
-def svg_text(x, y, text, color):
-    text = escape_svg_text(text)
-    return f'<text x="{x}" y="{y}" fill="{color}">{text}</text>'
+def svg_multicolor_line(x, y, spans):
+    """
+    spans = [(text, color), (text, color), ...]
+    """
+    tspan_elements = []
+    for text, color in spans:
+        text = escape_svg_text(text)
+        tspan_elements.append(
+            f'<tspan fill="{color}">{text}</tspan>'
+        )
+
+    return (
+        f'<text x="{x}" y="{y}">'
+        + "".join(tspan_elements)
+        + "</text>"
+    )
 
 # =========================
 # SVG GENERATION
@@ -87,43 +100,45 @@ def svg_text(x, y, text, color):
 def generate_svg(user):
     age = calculate_age(BIRTHDATE)
 
-    # LEFT TERMINAL BLOCK
+    # LEFT TERMINAL BLOCK (each row = list of spans)
     left_block = [
-        ("shavi@ShavirPC:", COLOR_PROMPT),
-        ("/mnt/c/Users/shavi$ neofetch", COLOR_PATH),
-        ("", COLOR_MUTED),
+        [( "shavi@ShavirPC:", COLOR_PROMPT),
+         ("/mnt/c/Users/shavi$ neofetch", COLOR_PATH)],
 
-        ("    :-::::.........................", COLOR_ASCII),
-        ("  :--:::.............................", COLOR_ASCII),
-        (" :-::::................................", COLOR_ASCII),
-        (" -::::.............................+-..", COLOR_ASCII),
-        (".::::.............................==+=..", COLOR_ASCII),
-        (".:::...............................*#+..", COLOR_ASCII),
-        (".:::.........++*+:.......................", COLOR_ASCII),
-        (".::.........=*+.*+.......................", COLOR_ASCII),
-        (".::..........=**+........................", COLOR_ASCII),
-        (".::........................:----::::.....", COLOR_ASCII),
-        (".::.....................:============:..", COLOR_ASCII),
-        (" ::.................:-================..", COLOR_ASCII),
-        (" .::...............-=============--=-..", COLOR_ASCII),
-        ("   .:..............:========------:...", COLOR_ASCII),
-        ("     ................:--------::........", COLOR_ASCII),
-        ("       ................................", COLOR_ASCII),
+        [],
 
-        ("", COLOR_MUTED),
-        ("shavi@ShavirPC:/mnt/c/Users/shavi$ sudo rm -rf / --no-preserve-root", COLOR_MUTED),
+        [( "    :-::::.........................", COLOR_ASCII)],
+        [( "  :--:::.............................", COLOR_ASCII)],
+        [( " :-::::................................", COLOR_ASCII)],
+        [( " -::::.............................+-..", COLOR_ASCII)],
+        [( ".::::.............................==+=..", COLOR_ASCII)],
+        [( ".:::...............................*#+..", COLOR_ASCII)],
+        [( ".:::.........++*+:.......................", COLOR_ASCII)],
+        [( ".::.........=*+.*+.......................", COLOR_ASCII)],
+        [( ".::..........=**+........................", COLOR_ASCII)],
+        [( ".::........................:----::::.....", COLOR_ASCII)],
+        [( ".::.....................:============:..", COLOR_ASCII)],
+        [( " ::.................:-================..", COLOR_ASCII)],
+        [( " .::...............-=============--=-..", COLOR_ASCII)],
+        [( "   .:..............:========------:...", COLOR_ASCII)],
+        [( "     ................:--------::........", COLOR_ASCII)],
+        [( "       ................................", COLOR_ASCII)],
+
+        [],
+
+        [( "shavi@ShavirPC:/mnt/c/Users/shavi$ sudo rm -rf / --no-preserve-root", COLOR_MUTED)],
     ]
 
-    # RIGHT INFO BLOCK
+    # RIGHT INFO BLOCK (each row = list of spans)
     right_block = [
-        (f"{GITHUB_USERNAME}@github", COLOR_USER),
-        ("-----------------------", COLOR_SEPARATOR),
-        ("Name:", COLOR_LABEL), (FULL_NAME, COLOR_VALUE),
-        ("Host:", COLOR_LABEL), (HOST, COLOR_VALUE),
-        ("Uptime:", COLOR_LABEL), (age, COLOR_VALUE),
-        ("Repos:", COLOR_LABEL), (str(user["public_repos"]), COLOR_VALUE),
-        ("Followers:", COLOR_LABEL), (str(user["followers"]), COLOR_VALUE),
-        ("Following:", COLOR_LABEL), (str(user["following"]), COLOR_VALUE),
+        [(f"{GITHUB_USERNAME}@github", COLOR_USER)],
+        [("---------------", COLOR_SEPARATOR)],
+        [("Name: ", COLOR_LABEL), (FULL_NAME, COLOR_VALUE)],
+        [("Host: ", COLOR_LABEL), (HOST, COLOR_VALUE)],
+        [("Uptime: ", COLOR_LABEL), (age, COLOR_VALUE)],
+        [("Repos: ", COLOR_LABEL), (str(user["public_repos"]), COLOR_VALUE)],
+        [("Followers: ", COLOR_LABEL), (str(user["followers"]), COLOR_VALUE)],
+        [("Following: ", COLOR_LABEL), (str(user["following"]), COLOR_VALUE)],
     ]
 
     lines = max(len(left_block), len(right_block))
@@ -147,13 +162,11 @@ def generate_svg(user):
 
     y = PADDING
     for i in range(lines):
-        if i < len(left_block):
-            text, color = left_block[i]
-            svg.append(svg_text(PADDING, y, text, color))
+        if i < len(left_block) and left_block[i]:
+            svg.append(svg_multicolor_line(PADDING, y, left_block[i]))
 
-        if i < len(right_block):
-            text, color = right_block[i]
-            svg.append(svg_text(420, y, text, color))
+        if i < len(right_block) and right_block[i]:
+            svg.append(svg_multicolor_line(420, y, right_block[i]))
 
         y += LINE_HEIGHT
 
