@@ -9,6 +9,16 @@ from calendar import monthrange
 GITHUB_USERNAME = "ShavirV"
 FULL_NAME = "Shavir Vallabh"
 HOST = "University of Pretoria"
+LANGUAGES = "C++, C#, Java, Python, JavaScript, PHP"
+OTHER_LANGS = "HTML/CSS, Bash, Powershell, SQL"
+FRAMEWORKS = "NodeJS, Angular, Django, REST APIs"
+HOBBIES = "Console Modding, Homebrew, Emulation"
+EMAIL_PERSONAL = "shavirvallabh05@gmail.com"
+EMAIL_ACADEMIC = "u23718146@tuks.co.za"
+LINKEDIN = "Shavir Vallabh"
+DISCORD = "shavirrrr"
+INSTAGRAM = "@shavir.v"
+
 BIRTHDATE = date(2005, 2, 4)
 
 # =========================
@@ -103,7 +113,7 @@ def generate_svg(user):
     # LEFT TERMINAL BLOCK (each row = list of spans)
     left_block = [
         [( "shavi@ShavirPC:", COLOR_PROMPT),
-         ("/mnt/c/Users/shavi$ neofetch", COLOR_PATH)],
+         ("/mnt/c/Users/shavi:~$ neofetch", COLOR_PATH)],
 
         [],
 
@@ -126,16 +136,35 @@ def generate_svg(user):
 
         [],
 
-        [( "shavi@ShavirPC:/mnt/c/Users/shavi$ sudo rm -rf / --no-preserve-root", COLOR_MUTED)],
+        [( "shavi@ShavirPC:", COLOR_PROMPT),
+         (/mnt/c/Users/shavi$ sudo rm -rf / --no-preserve-root", COLOR_PATH)],
     ]
 
     # RIGHT INFO BLOCK (each row = list of spans)
     right_block = [
-        [(f"{GITHUB_USERNAME}@github", COLOR_USER)],
-        [("---------------", COLOR_SEPARATOR)],
-        [("Name: ", COLOR_LABEL), (FULL_NAME, COLOR_VALUE)],
-        [("Host: ", COLOR_LABEL), (HOST, COLOR_VALUE)],
-        [("Uptime: ", COLOR_LABEL), (age, COLOR_VALUE)],
+        [("\n", COLOR_MUTED)],
+        [("\n", COLOR_MUTED)],
+        [(f"{GITHUB_USERNAME}@github", COLOR_USER), ("――――――――――――――――――――――――――――――――――", COLOR_MUTED)],
+        [("Kernel", COLOR_LABEL), (" : " + FULL_NAME, COLOR_VALUE)],
+        [("Host", COLOR_LABEL), (" : " + HOST, COLOR_VALUE)],
+        [("Uptime", COLOR_LABEL), (" : " + age, COLOR_VALUE)],
+        [("\n", COLOR_MUTED)],
+
+        [("Packages.Programming", COLOR_LABEL), (" : " + LANGUAGES, COLOR_VALUE)],
+        [("Packages.Computer", COLOR_LABEL), (" : " + OTHER_LANGS, COLOR_VALUE)],
+        [("Packages.Frameworks", COLOR_LABEL), (" : " + FRAMEWORKS, COLOR_VALUE)],
+        [("Hobbies", COLOR_LABEL), (" : " + HOBBIES, COLOR_VALUE)],
+        [("\n", COLOR_MUTED)],
+        
+        [(f"Contact Me:", COLOR_USER), ("――――――――――――――――――――――――――――――――――", COLOR_MUTED)],
+        [("Email.personal", COLOR_LABEL), (" : " + EMAIL_PERSONAL, COLOR_VALUE)],
+        [("Email.academic", COLOR_LABEL), (" : " + EMAIL_ACADEMIC, COLOR_VALUE)],
+        [("Socials.LinkedIn", COLOR_LABEL), (" : " + LINKEDIN, COLOR_VALUE)],
+        [("Socials.Instagram", COLOR_LABEL), (" : " + INSTAGRAM, COLOR_VALUE)],
+        [("Socials.Discord", COLOR_LABEL), (" : " + DISCORD, COLOR_VALUE)],
+
+        
+        [("\nProfile Stats:", COLOR_USER), ("――――――――――――――――――――――――――――――――――", COLOR_MUTED)],
         [("Repos: ", COLOR_LABEL), (str(user["public_repos"]), COLOR_VALUE)],
         [("Followers: ", COLOR_LABEL), (str(user["followers"]), COLOR_VALUE)],
         [("Following: ", COLOR_LABEL), (str(user["following"]), COLOR_VALUE)],
