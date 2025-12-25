@@ -137,7 +137,7 @@ def generate_svg(user):
         [],
 
         [( "shavi@ShavirPC:", COLOR_PROMPT),
-         (/mnt/c/Users/shavi$ sudo rm -rf / --no-preserve-root", COLOR_PATH)],
+         ("/mnt/c/Users/shavi$ sudo rm -rf / --no-preserve-root", COLOR_PATH)],
     ]
 
     # RIGHT INFO BLOCK (each row = list of spans)
