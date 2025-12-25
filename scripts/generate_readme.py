@@ -1,6 +1,7 @@
 import requests
 import os
 from datetime import date
+from calendar import monthrange
 
 # =========================
 # USER CONFIGURATION
@@ -10,136 +11,169 @@ FULL_NAME = "Shavir Vallabh"
 HOST = "University of Pretoria"
 BIRTHDATE = date(2005, 2, 4)
 
-# SVG styling
+# =========================
+# SVG STYLING
+# =========================
 FONT_FAMILY = "monospace"
-FONT_SIZE = 15
-LINE_HEIGHT = 13
+FONT_SIZE = 14
+LINE_HEIGHT = 20
 PADDING = 16
+SVG_WIDTH = 800
 
-# Colors
-COLOR_LOGO = "#7aa2f7"
-COLOR_LABEL = "#9ece6a"
-COLOR_USER = "#bb9af7"
+# =========================
+# TERMINAL COLOR PALETTE
+# =========================
+BG_COLOR        = "#0c0c0c"
+COLOR_PROMPT    = "#16c60c"   # green
+COLOR_PATH      = "#3a96dd"   # blue
+COLOR_ASCII     = "#e74856"   # neofetch red
+COLOR_MUTED     = "#7a7a7a"
+COLOR_LABEL     = "#9ece6a"
+COLOR_VALUE     = "#d4d4d4"
+COLOR_USER      = "#bb9af7"
 COLOR_SEPARATOR = "#565f89"
-COLOR_LEFT = "#c92d22"
-COLOR_RIGHT = "#50fa7b"
-BG_COLOR = "#1a1b26"
 
-# GitHub API
+# =========================
+# GITHUB API
+# =========================
 TOKEN = os.environ["GITHUB_TOKEN"]
-HEADERS = {"Authorization": f"Bearer {TOKEN}", "Accept": "application/vnd.github+json"}
+HEADERS = {
+    "Authorization": f"Bearer {TOKEN}",
+    "Accept": "application/vnd.github+json"
+}
 
+# =========================
+# HELPERS
+# =========================
 def get_user_data():
-    r = requests.get(f"https://api.github.com/users/{GITHUB_USERNAME}", headers=HEADERS)
+    r = requests.get(
+        f"https://api.github.com/users/{GITHUB_USERNAME}",
+        headers=HEADERS
+    )
     r.raise_for_status()
     return r.json()
 
 def calculate_age(birthdate: date):
     today = date.today()
 
-    # Start with difference in years, months, days
     years = today.year - birthdate.year
     months = today.month - birthdate.month
     days = today.day - birthdate.day
 
-    # Adjust if days negative
     if days < 0:
         months -= 1
-        # Number of days in previous month
-        from calendar import monthrange
         days += monthrange(today.year, (today.month - 1) or 12)[1]
 
-    # Adjust if months negative
     if months < 0:
         years -= 1
         months += 12
 
     return f"{years} years, {months} months, {days} days"
 
-def escape_svg_text(text):
-    return text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+def escape_svg_text(text: str):
+    return (
+        text.replace("&", "&amp;")
+            .replace("<", "&lt;")
+            .replace(">", "&gt;")
+    )
 
 def svg_text(x, y, text, color):
     text = escape_svg_text(text)
     return f'<text x="{x}" y="{y}" fill="{color}">{text}</text>'
 
+# =========================
+# SVG GENERATION
+# =========================
 def generate_svg(user):
     age = calculate_age(BIRTHDATE)
 
+    # LEFT TERMINAL BLOCK
     left_block = [
-"shavi@ShavirPC:/mnt/c/Users/shavi$ neofetch",
-"    :-::::.........................          ",
-"  :--:::.............................        ",
-" :-::::................................      ",
-" -::::.............................+-..      ",
-".::::.............................==+=..     ",
-".:::...............................*#+..     ",
-".:::.........++*+:.......................    ",
-".::.........=*+.*+.......................    ",
-".::..........=**+........................    ",
-".::........................:----::::.....    ",
-".::.....................:============:..     ",
-" ::.................:-================..     ",
-" .::...............-=============--=-..:----:",
-"   .:..............:========------:...::::::-",
-"     ................:--------::........:::::",
-"       .....................................:",
-"        :....................................",
-"      .:::.................................. ",
-"    .:...................................    ",
-"           .......................           ",
-"                                             ",
-"                                             ",
-"                                             ",
-"                                             "
-"shavi@ShavirPC:/mnt/c/Users/shavi$ sudo rm -rf / --no-preserve-root"
+        ("shavi@ShavirPC:", COLOR_PROMPT),
+        ("/mnt/c/Users/shavi$ neofetch", COLOR_PATH),
+        ("", COLOR_MUTED),
+
+        ("    :-::::.........................", COLOR_ASCII),
+        ("  :--:::.............................", COLOR_ASCII),
+        (" :-::::................................", COLOR_ASCII),
+        (" -::::.............................+-..", COLOR_ASCII),
+        (".::::.............................==+=..", COLOR_ASCII),
+        (".:::...............................*#+..", COLOR_ASCII),
+        (".:::.........++*+:.......................", COLOR_ASCII),
+        (".::.........=*+.*+.......................", COLOR_ASCII),
+        (".::..........=**+........................", COLOR_ASCII),
+        (".::........................:----::::.....", COLOR_ASCII),
+        (".::.....................:============:..", COLOR_ASCII),
+        (" ::.................:-================..", COLOR_ASCII),
+        (" .::...............-=============--=-..", COLOR_ASCII),
+        ("   .:..............:========------:...", COLOR_ASCII),
+        ("     ................:--------::........", COLOR_ASCII),
+        ("       ................................", COLOR_ASCII),
+
+        ("", COLOR_MUTED),
+        ("shavi@ShavirPC:/mnt/c/Users/shavi$ sudo rm -rf / --no-preserve-root", COLOR_MUTED),
     ]
 
+    # RIGHT INFO BLOCK
     right_block = [
-    (f"{GITHUB_USERNAME}@github", COLOR_USER),
-    ("-----------------------", COLOR_SEPARATOR),
-    ("Name:", COLOR_LEFT), (f"{FULL_NAME}", COLOR_RIGHT),
-    ("Host:", COLOR_LEFT), (f"{HOST}", COLOR_RIGHT),
-    ("Uptime:", COLOR_LEFT), (f"{age}", COLOR_RIGHT),
-    ("Repos:", COLOR_LEFT), (f"{user['public_repos']}", COLOR_RIGHT),
-    ("Followers:", COLOR_LEFT), (f"{user['followers']}", COLOR_RIGHT),
-    ("Following:", COLOR_LEFT), (f"{user['following']}", COLOR_RIGHT),
+        (f"{GITHUB_USERNAME}@github", COLOR_USER),
+        ("-----------------------", COLOR_SEPARATOR),
+        ("Name:", COLOR_LABEL), (FULL_NAME, COLOR_VALUE),
+        ("Host:", COLOR_LABEL), (HOST, COLOR_VALUE),
+        ("Uptime:", COLOR_LABEL), (age, COLOR_VALUE),
+        ("Repos:", COLOR_LABEL), (str(user["public_repos"]), COLOR_VALUE),
+        ("Followers:", COLOR_LABEL), (str(user["followers"]), COLOR_VALUE),
+        ("Following:", COLOR_LABEL), (str(user["following"]), COLOR_VALUE),
     ]
 
     lines = max(len(left_block), len(right_block))
     height = PADDING * 2 + lines * LINE_HEIGHT
-    width = 800
 
     svg = [
-        f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}">',
+        f'<svg xmlns="http://www.w3.org/2000/svg" width="{SVG_WIDTH}" height="{height}">',
         f'<rect width="100%" height="100%" fill="{BG_COLOR}"/>',
-        f'<style>text {{ font-family: {FONT_FAMILY}; font-size: {FONT_SIZE}px; }}</style>'
+        f'''
+        <style>
+          text {{
+            font-family: {FONT_FAMILY};
+            font-size: {FONT_SIZE}px;
+            dominant-baseline: text-before-edge;
+            white-space: pre;
+            letter-spacing: 0.4px;
+          }}
+        </style>
+        '''
     ]
 
-    y = PADDING + LINE_HEIGHT
+    y = PADDING
     for i in range(lines):
         if i < len(left_block):
-            svg.append(svg_text(PADDING, y, left_block[i], COLOR_LOGO))
+            text, color = left_block[i]
+            svg.append(svg_text(PADDING, y, text, color))
+
         if i < len(right_block):
             text, color = right_block[i]
-            svg.append(svg_text(400, y, text, color))
+            svg.append(svg_text(420, y, text, color))
+
         y += LINE_HEIGHT
 
     svg.append("</svg>")
     return "\n".join(svg)
 
+# =========================
+# README UPDATE
+# =========================
 def update_readme():
-    """Update README.md to reference the hosted neofetch.svg"""
     readme_path = "README.md"
-    svg_url = f"https://raw.githubusercontent.com/{GITHUB_USERNAME}/ShavirV/main/neofetch.svg"
+    svg_url = f"https://raw.githubusercontent.com/{GITHUB_USERNAME}/{GITHUB_USERNAME}/main/neofetch.svg"
 
-    img_block = f'''
+    img_block = f"""
 <!-- neofetch:start -->
-<a href="https://github.com/{GITHUB_USERNAME}/ShavirV">
+<a href="https://github.com/{GITHUB_USERNAME}">
   <img alt="{FULL_NAME}'s GitHub Profile README" src="{svg_url}" width="700"/>
 </a>
 <!-- neofetch:end -->
-'''.strip()
+""".strip()
 
     with open(readme_path, "r", encoding="utf-8") as f:
         content = f.read()
@@ -155,15 +189,18 @@ def update_readme():
     with open(readme_path, "w", encoding="utf-8") as f:
         f.write(new_content)
 
+# =========================
+# MAIN
+# =========================
 def main():
     print("Generating neofetch.svg...")
     user = get_user_data()
-    svg_content = generate_svg(user)
 
+    svg_content = generate_svg(user)
     with open("neofetch.svg", "w", encoding="utf-8") as f:
         f.write(svg_content)
 
-    print("Updating README.md to reference hosted SVG...")
+    print("Updating README.md...")
     update_readme()
     print("Done!")
 
