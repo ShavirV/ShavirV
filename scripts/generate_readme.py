@@ -33,10 +33,10 @@ SVG_WIDTH = 1000
 # =========================
 # TERMINAL COLOR PALETTE
 # =========================
-BG_COLOR        = "#0c0c0c"
+BG_COLOR        = "#262d33"
 COLOR_PROMPT    = "#16c60c"
 COLOR_PATH      = "#3a96dd"
-COLOR_ASCII     = "#e74856"
+COLOR_ASCII     = "#d9c811"
 COLOR_MUTED     = "#7a7a7a"
 COLOR_LABEL     = "#9ece6a"
 COLOR_VALUE     = "#d4d4d4"
@@ -136,7 +136,7 @@ def generate_svg(user):
 
         [],
 
-        [( "\n\n\n shavi@ShavirPC:", COLOR_PROMPT),
+        [( "\n\n\n\nshavi@ShavirPC:", COLOR_PROMPT),
          ("/mnt/c/Users/shavi$ sudo rm -rf / --no-preserve-root", COLOR_PATH)],
     ]
 
@@ -165,13 +165,13 @@ def generate_svg(user):
 
         
         [("\nProfile Stats:", COLOR_USER), ("―――――――――――――――――――――――――――――――――――――――", COLOR_MUTED)],
-        [("Repos: ", COLOR_LABEL), (str(user["public_repos"]), COLOR_VALUE)],
+        [("\nRepos: ", COLOR_LABEL), (str(user["public_repos"]), COLOR_VALUE)],
         [("Followers: ", COLOR_LABEL), (str(user["followers"]), COLOR_VALUE)],
         [("Following: ", COLOR_LABEL), (str(user["following"]), COLOR_VALUE)],
     ]
 
     lines = max(len(left_block), len(right_block))
-    height = PADDING * 2.5 + lines * LINE_HEIGHT
+    height = PADDING * 3 + lines * LINE_HEIGHT
 
     svg = [
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{SVG_WIDTH}" height="{height}">',
