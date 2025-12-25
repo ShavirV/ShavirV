@@ -28,7 +28,7 @@ FONT_FAMILY = "monospace"
 FONT_SIZE = 14
 LINE_HEIGHT = 20
 PADDING = 16
-SVG_WIDTH = 800
+SVG_WIDTH = 1000
 
 # =========================
 # TERMINAL COLOR PALETTE
@@ -136,7 +136,7 @@ def generate_svg(user):
 
         [],
 
-        [( "shavi@ShavirPC:", COLOR_PROMPT),
+        [( "\n\n\n\n\nshavi@ShavirPC:", COLOR_PROMPT),
          ("/mnt/c/Users/shavi$ sudo rm -rf / --no-preserve-root", COLOR_PATH)],
     ]
 
@@ -144,7 +144,7 @@ def generate_svg(user):
     right_block = [
         [("\n", COLOR_MUTED)],
         [("\n", COLOR_MUTED)],
-        [(f"{GITHUB_USERNAME}@github", COLOR_USER), ("――――――――――――――――――――――――――――――――――", COLOR_MUTED)],
+        [(f"{GITHUB_USERNAME}@github", COLOR_USER), ("―――――――――――――――――――――――――――――――――", COLOR_MUTED)],
         [("Kernel", COLOR_LABEL), (" : " + FULL_NAME, COLOR_VALUE)],
         [("Host", COLOR_LABEL), (" : " + HOST, COLOR_VALUE)],
         [("Uptime", COLOR_LABEL), (" : " + age, COLOR_VALUE)],
@@ -156,7 +156,7 @@ def generate_svg(user):
         [("Hobbies", COLOR_LABEL), (" : " + HOBBIES, COLOR_VALUE)],
         [("\n", COLOR_MUTED)],
         
-        [(f"Contact Me:", COLOR_USER), ("――――――――――――――――――――――――――――――――――", COLOR_MUTED)],
+        [(f"Contact Me:", COLOR_USER), ("―――――――――――――――――――――――――――――――――――", COLOR_MUTED)],
         [("Email.personal", COLOR_LABEL), (" : " + EMAIL_PERSONAL, COLOR_VALUE)],
         [("Email.academic", COLOR_LABEL), (" : " + EMAIL_ACADEMIC, COLOR_VALUE)],
         [("Socials.LinkedIn", COLOR_LABEL), (" : " + LINKEDIN, COLOR_VALUE)],
@@ -171,7 +171,7 @@ def generate_svg(user):
     ]
 
     lines = max(len(left_block), len(right_block))
-    height = PADDING * 2 + lines * LINE_HEIGHT
+    height = PADDING * 2 + lines * LINE_HEIGHT + 2
 
     svg = [
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{SVG_WIDTH}" height="{height}">',
