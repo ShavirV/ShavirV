@@ -171,7 +171,7 @@ def generate_svg(user):
     ]
 
     lines = max(len(left_block), len(right_block))
-    height = PADDING * 3 + lines * LINE_HEIGHT
+    height = PADDING * 6 + lines * LINE_HEIGHT
 
     svg = [
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{SVG_WIDTH}" height="{height}">',
