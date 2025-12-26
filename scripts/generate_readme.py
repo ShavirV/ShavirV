@@ -136,7 +136,7 @@ def generate_svg(user):
 
         [],
 
-        [( "\n\n\n\nshavi@ShavirPC:", COLOR_PROMPT),
+        [( "\n\n\n\n\nshavi@ShavirPC:", COLOR_PROMPT),
          ("/mnt/c/Users/shavi$ sudo rm -rf / --no-preserve-root", COLOR_PATH)],
     ]
 
