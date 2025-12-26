@@ -162,10 +162,10 @@ def generate_svg(user):
         [("Socials.LinkedIn", COLOR_LABEL), (" : " + LINKEDIN, COLOR_VALUE)],
         [("Socials.Instagram", COLOR_LABEL), (" : " + INSTAGRAM, COLOR_VALUE)],
         [("Socials.Discord", COLOR_LABEL), (" : " + DISCORD, COLOR_VALUE)],
-
+        [("\n", COLOR_MUTED)],
         
-        [("\nProfile Stats:", COLOR_USER), ("―――――――――――――――――――――――――――――――――――――――", COLOR_MUTED)],
-        [("\nRepos: ", COLOR_LABEL), (str(user["public_repos"]), COLOR_VALUE)],
+        [("Profile Stats:", COLOR_USER), ("―――――――――――――――――――――――――――――――――――――――", COLOR_MUTED)],
+        [("Repos: ", COLOR_LABEL), (str(user["public_repos"]), COLOR_VALUE)],
         [("Followers: ", COLOR_LABEL), (str(user["followers"]), COLOR_VALUE)],
         [("Following: ", COLOR_LABEL), (str(user["following"]), COLOR_VALUE)],
     ]
