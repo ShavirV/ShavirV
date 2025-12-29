@@ -177,7 +177,7 @@ def generate_svg(metrics: dict) -> str:
         [("Repos", COLOR_LABEL),   (" : " + str(repos), COLOR_VALUE)],
         [("Stars", COLOR_LABEL),   (" : " + str(stars), COLOR_VALUE)],
         [("Commits", COLOR_LABEL), (" : " + str(commits), COLOR_VALUE)],
-        [("Lines of Code: ", COLOR_LABEL),   ("+" + str(added), COLOR_GREENISH), ("  |  ", COLOR_LABEL),   ("-" + str(removed), COLOR_REDDISH)],
+        [("Lines of Code: ", COLOR_LABEL),   ("+" + str(added), COLOR_GREENISH), ("  |  ", COLOR_LABEL),   ("-" + str(removed), COLOR_REDDISH)]
     ]
 
     # =========================
