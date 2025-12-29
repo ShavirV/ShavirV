@@ -16,6 +16,14 @@ jobs:
         with:
           filename: metrics.json
           token: ${{ secrets.GITHUB_TOKEN }}
+          user: ShavirV
+      
+          # Enable JSON output
+          output_action: none
+          output_condition: always
+          output_format: json
+          output_file: metrics.json
+
 
           # Core stats
           base: ""
