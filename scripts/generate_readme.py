@@ -20,9 +20,10 @@ BIRTHDATE = date(2005, 2, 4)
 # =========================
 FONT_FAMILY = "monospace"
 FONT_SIZE = 14
-LINE_HEIGHT = 18
+LINE_HEIGHT = 20
 PADDING = 16
 SVG_WIDTH = 1000
+RIGHT_X = 420
 
 # Terminal palette
 BG_COLOR        = "#262d33"
@@ -33,8 +34,6 @@ COLOR_MUTED     = "#7a7a7a"
 COLOR_LABEL     = "#e74856"
 COLOR_VALUE     = "#d4d4d4"
 COLOR_USER      = "#bb9af7"
-
-RIGHT_X = 420
 
 # =========================
 # HELPERS
@@ -94,33 +93,67 @@ def generate_svg(metrics: dict) -> str:
     stars   = safe_get(metrics, "plugins", "stars", "stars")
     repos   = safe_get(metrics, "base", "repositories")
 
-    # ---- LEFT BLOCK ----
+    # =========================
+    # LEFT TERMINAL BLOCK
+    # =========================
     left = [
-        [("shavi@ShavirPC:", COLOR_PROMPT), (" ~$ neofetch", COLOR_PATH)],
+        [( "shavi@ShavirPC:", COLOR_PROMPT),
+         ("/mnt/c/Users/shavi:~$ neofetch", COLOR_PATH)],
+
         [],
-        [("    :-::::.........................", COLOR_ASCII)],
-        [("  :--:::.............................", COLOR_ASCII)],
-        [(" :-::::................................", COLOR_ASCII)],
-        [(" -::::.............................+-..", COLOR_ASCII)],
-        [(" .::::.............................==+=..", COLOR_ASCII)],
-        [(" .:::...............................*#+..", COLOR_ASCII)],
-        [(" .:::.........++*+:.......................", COLOR_ASCII)],
+
+        [("    :-::::.........................          ", COLOR_ASCII)],
+        [("  :--:::.............................        ", COLOR_ASCII)],
+        [(" :-::::................................      ", COLOR_ASCII)],
+        [(" -::::.............................+-..      ", COLOR_ASCII)],
+        [(".::::.............................==+=..     ", COLOR_ASCII)],
+        [(".:::...............................*#+..     ", COLOR_ASCII)],
+        [(".:::.........++*+:.......................    ", COLOR_ASCII)],
+        [(".::.........=*+.*+.......................    ", COLOR_ASCII)],
+        [(".::..........=**+........................    ", COLOR_ASCII)],
+        [(".::........................:----::::.....    ", COLOR_ASCII)],
+        [(".::.....................:============:..     ", COLOR_ASCII)],
+        [(" ::.................:-================..     ", COLOR_ASCII)],
+        [(" .::...............-=============--=-..:----:", COLOR_ASCII)],
+        [("   .:..............:========------:...::::::-", COLOR_ASCII)],
+        [("     ................:--------::........:::::", COLOR_ASCII)],
+        [("       .....................................:", COLOR_ASCII)],
+        [("        :....................................", COLOR_ASCII)],
+        [("      .:::.................................. ", COLOR_ASCII)],
+        [("    .:...................................    ", COLOR_ASCII)],
+        [("           .......................           ", COLOR_ASCII)],
+
         [],
-        [("shavi@ShavirPC:", COLOR_PROMPT), (" ~$ sudo rm -rf /", COLOR_PATH)],
+
+        [("shavi@ShavirPC:", COLOR_PROMPT),
+         ("/mnt/c/Users/shavi$ sudo rm -rf / --no-preserve-root", COLOR_PATH)],
     ]
 
-    # ---- RIGHT BLOCK ----
+    # =========================
+    # RIGHT INFO BLOCK
+    # =========================
     right = [
-        [(f"{GITHUB_USERNAME}@github", COLOR_USER)],
-        [],
+        [("\n", COLOR_MUTED)],
+        [("\n", COLOR_MUTED)],
+
+        [(f"{GITHUB_USERNAME}@github", COLOR_USER),
+         ("―――――――――――――――――――――――――――――――――――――――", COLOR_MUTED)],
+
         [("Kernel", COLOR_LABEL), (" : " + FULL_NAME, COLOR_VALUE)],
         [("Host", COLOR_LABEL), (" : " + HOST, COLOR_VALUE)],
         [("Uptime", COLOR_LABEL), (" : " + age, COLOR_VALUE)],
-        [],
-        [("Languages", COLOR_LABEL), (" : " + LANGUAGES, COLOR_VALUE)],
-        [("Frameworks", COLOR_LABEL), (" : " + FRAMEWORKS, COLOR_VALUE)],
+
+        [("\n", COLOR_MUTED)],
+
+        [("Packages.Programming", COLOR_LABEL), (" : " + LANGUAGES, COLOR_VALUE)],
+        [("Packages.Frameworks", COLOR_LABEL), (" : " + FRAMEWORKS, COLOR_VALUE)],
         [("Hobbies", COLOR_LABEL), (" : " + HOBBIES, COLOR_VALUE)],
-        [],
+
+        [("\n", COLOR_MUTED)],
+
+        [("Profile Stats", COLOR_USER),
+         ("―――――――――――――――――――――――――――――――――――――――", COLOR_MUTED)],
+
         [("Repos", COLOR_LABEL),   (" : " + str(repos), COLOR_VALUE)],
         [("Stars", COLOR_LABEL),   (" : " + str(stars), COLOR_VALUE)],
         [("Commits", COLOR_LABEL), (" : " + str(commits), COLOR_VALUE)],
@@ -128,6 +161,9 @@ def generate_svg(metrics: dict) -> str:
         [("LOC -", COLOR_LABEL),   (" : " + str(removed), COLOR_VALUE)],
     ]
 
+    # =========================
+    # SVG BUILD
+    # =========================
     lines = max(len(left), len(right))
     height = PADDING * 2 + lines * LINE_HEIGHT
 
@@ -140,6 +176,8 @@ def generate_svg(metrics: dict) -> str:
                 font-family: {FONT_FAMILY};
                 font-size: {FONT_SIZE}px;
                 white-space: pre;
+                dominant-baseline: text-before-edge;
+                letter-spacing: 0.3px;
             }}
         </style>
         '''
@@ -147,9 +185,9 @@ def generate_svg(metrics: dict) -> str:
 
     y = PADDING
     for i in range(lines):
-        if i < len(left):
+        if i < len(left) and left[i]:
             svg.append(svg_line(PADDING, y, left[i]))
-        if i < len(right):
+        if i < len(right) and right[i]:
             svg.append(svg_line(RIGHT_X, y, right[i]))
         y += LINE_HEIGHT
 
