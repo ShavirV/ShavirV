@@ -41,6 +41,8 @@ COLOR_MUTED     = "#7a7a7a"
 COLOR_LABEL     = "#e74856"
 COLOR_VALUE     = "#d4d4d4"
 COLOR_USER      = "#bb9af7"
+COLOR_REDDISH   = "#e30e0e"
+COLOR_GREENISH  = "#0ee355"
 
 # =========================
 # HELPERS
@@ -133,7 +135,7 @@ def generate_svg(metrics: dict) -> str:
 
         [],
 
-        [("shavi@ShavirPC:", COLOR_PROMPT),
+        [("\n\n\nshavi@ShavirPC:", COLOR_PROMPT),
          ("/mnt/c/Users/shavi$ sudo rm -rf / --no-preserve-root", COLOR_PATH)],
     ]
 
@@ -175,8 +177,7 @@ def generate_svg(metrics: dict) -> str:
         [("Repos", COLOR_LABEL),   (" : " + str(repos), COLOR_VALUE)],
         [("Stars", COLOR_LABEL),   (" : " + str(stars), COLOR_VALUE)],
         [("Commits", COLOR_LABEL), (" : " + str(commits), COLOR_VALUE)],
-        [("LOC +", COLOR_LABEL),   (" : " + str(added), COLOR_VALUE)],
-        [("LOC -", COLOR_LABEL),   (" : " + str(removed), COLOR_VALUE)],
+        [("Lines of Code: ", COLOR_LABEL),   ("+" + str(added), COLOR_GREENISH), ("  |  ", COLOR_LABEL),   ("-" + str(removed), COLOR_REDDISH)],
     ]
 
     # =========================
