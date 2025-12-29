@@ -25,7 +25,7 @@ jobs:
       - name: Fetch GitHub metrics
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python scripts/fetch_github_metrics.py
+        run: python scripts/fetch_metrics.py
 
       - name: Generate SVG
         run: python scripts/generate_readme.py
