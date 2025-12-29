@@ -1,0 +1,29 @@
+name: GitHub Metrics
+
+on:
+  schedule:
+    - cron: "0 2 * * *" #run daily at midnight UTC
+  workflow_dispatch:
+
+jobs:
+  metrics:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: lowlighter/metrics@latest
+        with:
+          filename: metrics.json
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+          # Core stats
+          base: ""
+          plugin_lines: yes
+          plugin_lines_sections: lines
+          plugin_lines_history_limit: 0
+
+          plugin_stars: yes
+          plugin_stars_limit: 0
+
+          plugin_followup: yes
+          plugin_followup_sections: repositories
+
+          output_action: commit
