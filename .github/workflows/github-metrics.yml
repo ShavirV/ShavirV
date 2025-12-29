@@ -2,7 +2,7 @@ name: GitHub Metrics
 
 on:
   schedule:
-    - cron: "0 2 * * *" #run daily at midnight UTC
+    - cron: "0 2 * * *" # daily at 02:00 UTC
   workflow_dispatch:
 
 permissions:
@@ -14,19 +14,18 @@ jobs:
     steps:
       - uses: lowlighter/metrics@latest
         with:
-          filename: metrics.json
           token: ${{ secrets.GITHUB_TOKEN }}
           user: ShavirV
-      
-          # Enable JSON output
-          output_action: none
-          output_condition: always
+
+          # JSON output
           output_format: json
           output_file: metrics.json
+          output_condition: always
+          output_action: commit
 
-
-          # Core stats
+          #core stats
           base: ""
+
           plugin_lines: yes
           plugin_lines_sections: lines
           plugin_lines_history_limit: 0
@@ -36,5 +35,3 @@ jobs:
 
           plugin_followup: yes
           plugin_followup_sections: repositories
-
-          output_action: commit
