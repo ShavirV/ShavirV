@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="512">
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="532">
 <rect width="100%" height="100%" fill="#262d33"/>
 
         <style>
@@ -30,28 +30,37 @@
 <text x="16" y="156"><tspan fill="#d9c811">.:::...............................*#+..     </tspan></text>
 <text x="420" y="156"><tspan fill="#e74856">Packages.Programming</tspan><tspan fill="#d4d4d4"> : C++, C#, Java, Python, JavaScript, PHP</tspan></text>
 <text x="16" y="176"><tspan fill="#d9c811">.:::.........++*+:.......................    </tspan></text>
-<text x="420" y="176"><tspan fill="#e74856">Packages.Frameworks</tspan><tspan fill="#d4d4d4"> : NodeJS, Angular, Django</tspan></text>
+<text x="420" y="176"><tspan fill="#e74856">Packages.Computer</tspan><tspan fill="#d4d4d4"> : HTML/CSS, Bash, Powershell, SQL</tspan></text>
 <text x="16" y="196"><tspan fill="#d9c811">.::.........=*+.*+.......................    </tspan></text>
-<text x="420" y="196"><tspan fill="#e74856">Hobbies</tspan><tspan fill="#d4d4d4"> : Console Modding, Emulation</tspan></text>
+<text x="420" y="196"><tspan fill="#e74856">Packages.Frameworks</tspan><tspan fill="#d4d4d4"> : NodeJS, Angular, Django</tspan></text>
 <text x="16" y="216"><tspan fill="#d9c811">.::..........=**+........................    </tspan></text>
-<text x="420" y="216"><tspan fill="#7a7a7a">
-</tspan></text>
+<text x="420" y="216"><tspan fill="#e74856">Hobbies</tspan><tspan fill="#d4d4d4"> : Console Modding, Homebrew, Emulation</tspan></text>
 <text x="16" y="236"><tspan fill="#d9c811">.::........................:----::::.....    </tspan></text>
-<text x="420" y="236"><tspan fill="#bb9af7">Profile Stats</tspan><tspan fill="#7a7a7a">―――――――――――――――――――――――――――――――――――――――</tspan></text>
+<text x="420" y="236"><tspan fill="#7a7a7a">
+</tspan></text>
 <text x="16" y="256"><tspan fill="#d9c811">.::.....................:============:..     </tspan></text>
-<text x="420" y="256"><tspan fill="#e74856">Repos</tspan><tspan fill="#d4d4d4"> : 0</tspan></text>
+<text x="420" y="256"><tspan fill="#bb9af7">Contact Me:</tspan><tspan fill="#7a7a7a">――――――――――――――――――――――――――――――――――――――――――</tspan></text>
 <text x="16" y="276"><tspan fill="#d9c811"> ::.................:-================..     </tspan></text>
-<text x="420" y="276"><tspan fill="#e74856">Stars</tspan><tspan fill="#d4d4d4"> : 0</tspan></text>
+<text x="420" y="276"><tspan fill="#e74856">Email.personal</tspan><tspan fill="#d4d4d4"> : shavirvallabh05@gmail.com</tspan></text>
 <text x="16" y="296"><tspan fill="#d9c811"> .::...............-=============--=-..:----:</tspan></text>
-<text x="420" y="296"><tspan fill="#e74856">Commits</tspan><tspan fill="#d4d4d4"> : 0</tspan></text>
+<text x="420" y="296"><tspan fill="#e74856">Email.academic</tspan><tspan fill="#d4d4d4"> : u23718146@tuks.co.za</tspan></text>
 <text x="16" y="316"><tspan fill="#d9c811">   .:..............:========------:...::::::-</tspan></text>
-<text x="420" y="316"><tspan fill="#e74856">LOC +</tspan><tspan fill="#d4d4d4"> : 0</tspan></text>
+<text x="420" y="316"><tspan fill="#e74856">Socials.LinkedIn</tspan><tspan fill="#d4d4d4"> : Shavir Vallabh</tspan></text>
 <text x="16" y="336"><tspan fill="#d9c811">     ................:--------::........:::::</tspan></text>
-<text x="420" y="336"><tspan fill="#e74856">LOC -</tspan><tspan fill="#d4d4d4"> : 0</tspan></text>
+<text x="420" y="336"><tspan fill="#e74856">Socials.Instagram</tspan><tspan fill="#d4d4d4"> : @shavir.v</tspan></text>
 <text x="16" y="356"><tspan fill="#d9c811">       .....................................:</tspan></text>
+<text x="420" y="356"><tspan fill="#e74856">Socials.Discord</tspan><tspan fill="#d4d4d4"> : shavirrrr</tspan></text>
 <text x="16" y="376"><tspan fill="#d9c811">        :....................................</tspan></text>
+<text x="420" y="376"><tspan fill="#7a7a7a">
+</tspan></text>
 <text x="16" y="396"><tspan fill="#d9c811">      .:::.................................. </tspan></text>
+<text x="420" y="396"><tspan fill="#bb9af7">Profile Stats</tspan><tspan fill="#7a7a7a">―――――――――――――――――――――――――――――――――――――――</tspan></text>
 <text x="16" y="416"><tspan fill="#d9c811">    .:...................................    </tspan></text>
+<text x="420" y="416"><tspan fill="#e74856">Repos</tspan><tspan fill="#d4d4d4"> : 3</tspan></text>
 <text x="16" y="436"><tspan fill="#d9c811">           .......................           </tspan></text>
+<text x="420" y="436"><tspan fill="#e74856">Stars</tspan><tspan fill="#d4d4d4"> : 1</tspan></text>
+<text x="420" y="456"><tspan fill="#e74856">Commits</tspan><tspan fill="#d4d4d4"> : 165</tspan></text>
 <text x="16" y="476"><tspan fill="#16c60c">shavi@ShavirPC:</tspan><tspan fill="#3a96dd">/mnt/c/Users/shavi$ sudo rm -rf / --no-preserve-root</tspan></text>
+<text x="420" y="476"><tspan fill="#e74856">LOC +</tspan><tspan fill="#d4d4d4"> : 11406</tspan></text>
+<text x="420" y="496"><tspan fill="#e74856">LOC -</tspan><tspan fill="#d4d4d4"> : 5264</tspan></text>
 </svg>
