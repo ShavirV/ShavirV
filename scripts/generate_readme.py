@@ -1,6 +1,4 @@
 import json
-import requests
-import os
 from datetime import date
 from calendar import monthrange
 
@@ -36,27 +34,12 @@ COLOR_LABEL     = "#e74856"
 COLOR_VALUE     = "#d4d4d4"
 COLOR_USER      = "#bb9af7"
 
-# =========================
-# GITHUB API
-# =========================
-TOKEN = os.environ["GITHUB_TOKEN"]
-HEADERS = {
-    "Authorization": f"Bearer {TOKEN}",
-    "Accept": "application/vnd.github+json"
-}
+RIGHT_X = 420
 
 # =========================
 # HELPERS
 # =========================
-def get_user_data():
-    r = requests.get(
-        f"https://api.github.com/users/{GITHUB_USERNAME}",
-        headers=HEADERS
-    )
-    r.raise_for_status()
-    return r.json()
-
-def calculate_age(birthdate):
+def calculate_age(birthdate: date) -> str:
     today = date.today()
     years = today.year - birthdate.year
     months = today.month - birthdate.month
@@ -71,34 +54,49 @@ def calculate_age(birthdate):
 
     return f"{years}y {months}m {days}d"
 
-def load_metrics():
-    with open("metrics.json", "r", encoding="utf-8") as f:
+
+def load_metrics(path="metrics.json") -> dict:
+    with open(path, "r", encoding="utf-8") as f:
         return json.load(f)
 
-def escape(text):
-    return text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
-def svg_line(x, y, spans):
-    t = "".join(
-        f'<tspan fill="{c}">{escape(s)}</tspan>'
-        for s, c in spans
+def escape(text: str) -> str:
+    return (
+        text.replace("&", "&amp;")
+            .replace("<", "&lt;")
+            .replace(">", "&gt;")
     )
-    return f'<text x="{x}" y="{y}">{t}</text>'
+
+
+def svg_line(x: int, y: int, spans: list) -> str:
+    tspans = "".join(
+        f'<tspan fill="{color}">{escape(text)}</tspan>'
+        for text, color in spans
+    )
+    return f'<text x="{x}" y="{y}">{tspans}</text>'
+
+
+def safe_get(obj, *keys, default=0):
+    for key in keys:
+        obj = obj.get(key, {})
+    return obj if obj else default
 
 # =========================
 # SVG GENERATION
 # =========================
-def generate_svg(user, metrics):
+def generate_svg(metrics: dict) -> str:
     age = calculate_age(BIRTHDATE)
 
-    # Extract metrics
-    commits = metrics["plugins"]["lines"]["lines"]["commits"]
-    added = metrics["plugins"]["lines"]["lines"]["added"]
-    removed = metrics["plugins"]["lines"]["lines"]["deleted"]
-    stars = metrics["plugins"]["stars"]["stars"]
+    # ---- Extract metrics safely ----
+    commits = safe_get(metrics, "plugins", "lines", "lines", "commits")
+    added   = safe_get(metrics, "plugins", "lines", "lines", "added")
+    removed = safe_get(metrics, "plugins", "lines", "lines", "deleted")
+    stars   = safe_get(metrics, "plugins", "stars", "stars")
+    repos   = safe_get(metrics, "base", "repositories")
 
+    # ---- LEFT BLOCK ----
     left = [
-        [("shavi@ShavirPC:", COLOR_PROMPT), ("~$ neofetch", COLOR_PATH)],
+        [("shavi@ShavirPC:", COLOR_PROMPT), (" ~$ neofetch", COLOR_PATH)],
         [],
         [("    :-::::.........................", COLOR_ASCII)],
         [("  :--:::.............................", COLOR_ASCII)],
@@ -108,9 +106,10 @@ def generate_svg(user, metrics):
         [(" .:::...............................*#+..", COLOR_ASCII)],
         [(" .:::.........++*+:.......................", COLOR_ASCII)],
         [],
-        [("shavi@ShavirPC:", COLOR_PROMPT), ("~$ sudo rm -rf /", COLOR_PATH)],
+        [("shavi@ShavirPC:", COLOR_PROMPT), (" ~$ sudo rm -rf /", COLOR_PATH)],
     ]
 
+    # ---- RIGHT BLOCK ----
     right = [
         [(f"{GITHUB_USERNAME}@github", COLOR_USER)],
         [],
@@ -122,11 +121,11 @@ def generate_svg(user, metrics):
         [("Frameworks", COLOR_LABEL), (" : " + FRAMEWORKS, COLOR_VALUE)],
         [("Hobbies", COLOR_LABEL), (" : " + HOBBIES, COLOR_VALUE)],
         [],
-        [("Repos", COLOR_LABEL), (" : " + str(user["public_repos"]), COLOR_VALUE)],
-        [("Stars", COLOR_LABEL), (" : " + str(stars), COLOR_VALUE)],
+        [("Repos", COLOR_LABEL),   (" : " + str(repos), COLOR_VALUE)],
+        [("Stars", COLOR_LABEL),   (" : " + str(stars), COLOR_VALUE)],
         [("Commits", COLOR_LABEL), (" : " + str(commits), COLOR_VALUE)],
-        [("LOC +", COLOR_LABEL), (" : " + str(added), COLOR_VALUE)],
-        [("LOC -", COLOR_LABEL), (" : " + str(removed), COLOR_VALUE)],
+        [("LOC +", COLOR_LABEL),   (" : " + str(added), COLOR_VALUE)],
+        [("LOC -", COLOR_LABEL),   (" : " + str(removed), COLOR_VALUE)],
     ]
 
     lines = max(len(left), len(right))
@@ -135,7 +134,15 @@ def generate_svg(user, metrics):
     svg = [
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{SVG_WIDTH}" height="{height}">',
         f'<rect width="100%" height="100%" fill="{BG_COLOR}"/>',
-        f'<style>text{{font-family:{FONT_FAMILY};font-size:{FONT_SIZE}px;white-space:pre}}</style>'
+        f'''
+        <style>
+            text {{
+                font-family: {FONT_FAMILY};
+                font-size: {FONT_SIZE}px;
+                white-space: pre;
+            }}
+        </style>
+        '''
     ]
 
     y = PADDING
@@ -143,7 +150,7 @@ def generate_svg(user, metrics):
         if i < len(left):
             svg.append(svg_line(PADDING, y, left[i]))
         if i < len(right):
-            svg.append(svg_line(420, y, right[i]))
+            svg.append(svg_line(RIGHT_X, y, right[i]))
         y += LINE_HEIGHT
 
     svg.append("</svg>")
@@ -153,12 +160,13 @@ def generate_svg(user, metrics):
 # MAIN
 # =========================
 def main():
-    user = get_user_data()
     metrics = load_metrics()
+    svg = generate_svg(metrics)
 
-    svg = generate_svg(user, metrics)
     with open("neofetch.svg", "w", encoding="utf-8") as f:
         f.write(svg)
+
+    print("neofetch.svg generated successfully")
 
 if __name__ == "__main__":
     main()
