@@ -10,8 +10,15 @@ FULL_NAME = "Shavir Vallabh"
 HOST = "University of Pretoria"
 
 LANGUAGES = "C++, C#, Java, Python, JavaScript, PHP"
+OTHER_LANGS = "HTML/CSS, Bash, Powershell, SQL"
 FRAMEWORKS = "NodeJS, Angular, Django"
-HOBBIES = "Console Modding, Emulation"
+HOBBIES = "Console Modding, Homebrew, Emulation"
+
+EMAIL_PERSONAL = "shavirvallabh05@gmail.com"
+EMAIL_ACADEMIC = "u23718146@tuks.co.za"
+LINKEDIN = "Shavir Vallabh"
+DISCORD = "shavirrrr"
+INSTAGRAM = "@shavir.v"
 
 BIRTHDATE = date(2005, 2, 4)
 
@@ -87,11 +94,12 @@ def generate_svg(metrics: dict) -> str:
     age = calculate_age(BIRTHDATE)
 
     # ---- Extract metrics safely ----
-    commits = safe_get(metrics, "plugins", "lines", "lines", "commits")
-    added   = safe_get(metrics, "plugins", "lines", "lines", "added")
-    removed = safe_get(metrics, "plugins", "lines", "lines", "deleted")
-    stars   = safe_get(metrics, "plugins", "stars", "stars")
-    repos   = safe_get(metrics, "base", "repositories")
+    commits = metrics.get("commits", 0)
+    added   = metrics.get("loc_added", 0)
+    removed = metrics.get("loc_removed", 0)
+    stars   = metrics.get("stars", 0)
+    repos   = metrics.get("repos", 0)
+
 
     # =========================
     # LEFT TERMINAL BLOCK
@@ -146,8 +154,18 @@ def generate_svg(metrics: dict) -> str:
         [("\n", COLOR_MUTED)],
 
         [("Packages.Programming", COLOR_LABEL), (" : " + LANGUAGES, COLOR_VALUE)],
+        [("Packages.Computer", COLOR_LABEL), (" : " + OTHER_LANGS, COLOR_VALUE)],
         [("Packages.Frameworks", COLOR_LABEL), (" : " + FRAMEWORKS, COLOR_VALUE)],
         [("Hobbies", COLOR_LABEL), (" : " + HOBBIES, COLOR_VALUE)],
+
+        [("\n", COLOR_MUTED)],
+
+        [(f"Contact Me:", COLOR_USER), ("――――――――――――――――――――――――――――――――――――――――――", COLOR_MUTED)],
+        [("Email.personal", COLOR_LABEL), (" : " + EMAIL_PERSONAL, COLOR_VALUE)],
+        [("Email.academic", COLOR_LABEL), (" : " + EMAIL_ACADEMIC, COLOR_VALUE)],
+        [("Socials.LinkedIn", COLOR_LABEL), (" : " + LINKEDIN, COLOR_VALUE)],
+        [("Socials.Instagram", COLOR_LABEL), (" : " + INSTAGRAM, COLOR_VALUE)],
+        [("Socials.Discord", COLOR_LABEL), (" : " + DISCORD, COLOR_VALUE)],
 
         [("\n", COLOR_MUTED)],
 
