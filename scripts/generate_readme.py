@@ -1,3 +1,4 @@
+import json
 import requests
 import os
 from datetime import date
@@ -9,15 +10,10 @@ from calendar import monthrange
 GITHUB_USERNAME = "ShavirV"
 FULL_NAME = "Shavir Vallabh"
 HOST = "University of Pretoria"
+
 LANGUAGES = "C++, C#, Java, Python, JavaScript, PHP"
-OTHER_LANGS = "HTML/CSS, Bash, Powershell, SQL"
-FRAMEWORKS = "NodeJS, Angular, Django, REST APIs"
-HOBBIES = "Console Modding, Homebrew, Emulation"
-EMAIL_PERSONAL = "shavirvallabh05@gmail.com"
-EMAIL_ACADEMIC = "u23718146@tuks.co.za"
-LINKEDIN = "Shavir Vallabh"
-DISCORD = "shavirrrr"
-INSTAGRAM = "@shavir.v"
+FRAMEWORKS = "NodeJS, Angular, Django"
+HOBBIES = "Console Modding, Emulation"
 
 BIRTHDATE = date(2005, 2, 4)
 
@@ -26,22 +22,19 @@ BIRTHDATE = date(2005, 2, 4)
 # =========================
 FONT_FAMILY = "monospace"
 FONT_SIZE = 14
-LINE_HEIGHT = 20
+LINE_HEIGHT = 18
 PADDING = 16
 SVG_WIDTH = 1000
 
-# =========================
-# TERMINAL COLOR PALETTE
-# =========================
+# Terminal palette
 BG_COLOR        = "#262d33"
 COLOR_PROMPT    = "#16c60c"
 COLOR_PATH      = "#3a96dd"
 COLOR_ASCII     = "#d9c811"
 COLOR_MUTED     = "#7a7a7a"
-COLOR_LABEL     = "#9ece6a"
+COLOR_LABEL     = "#e74856"
 COLOR_VALUE     = "#d4d4d4"
 COLOR_USER      = "#bb9af7"
-COLOR_SEPARATOR = "#565f89"
 
 # =========================
 # GITHUB API
@@ -63,9 +56,8 @@ def get_user_data():
     r.raise_for_status()
     return r.json()
 
-def calculate_age(birthdate: date):
+def calculate_age(birthdate):
     today = date.today()
-
     years = today.year - birthdate.year
     months = today.month - birthdate.month
     days = today.day - birthdate.day
@@ -73,178 +65,100 @@ def calculate_age(birthdate: date):
     if days < 0:
         months -= 1
         days += monthrange(today.year, (today.month - 1) or 12)[1]
-
     if months < 0:
         years -= 1
         months += 12
 
-    return f"{years} years, {months} months, {days} days"
+    return f"{years}y {months}m {days}d"
 
-def escape_svg_text(text: str):
-    return (
-        text.replace("&", "&amp;")
-            .replace("<", "&lt;")
-            .replace(">", "&gt;")
+def load_metrics():
+    with open("metrics.json", "r", encoding="utf-8") as f:
+        return json.load(f)
+
+def escape(text):
+    return text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+def svg_line(x, y, spans):
+    t = "".join(
+        f'<tspan fill="{c}">{escape(s)}</tspan>'
+        for s, c in spans
     )
-
-def svg_multicolor_line(x, y, spans):
-    """
-    spans = [(text, color), (text, color), ...]
-    """
-    tspan_elements = []
-    for text, color in spans:
-        text = escape_svg_text(text)
-        tspan_elements.append(
-            f'<tspan fill="{color}">{text}</tspan>'
-        )
-
-    return (
-        f'<text x="{x}" y="{y}">'
-        + "".join(tspan_elements)
-        + "</text>"
-    )
+    return f'<text x="{x}" y="{y}">{t}</text>'
 
 # =========================
 # SVG GENERATION
 # =========================
-def generate_svg(user):
+def generate_svg(user, metrics):
     age = calculate_age(BIRTHDATE)
 
-    # LEFT TERMINAL BLOCK (each row = list of spans)
-    left_block = [
-        [( "shavi@ShavirPC:", COLOR_PROMPT),
-         ("/mnt/c/Users/shavi:~$ neofetch", COLOR_PATH)],
+    # Extract metrics
+    commits = metrics["plugins"]["lines"]["lines"]["commits"]
+    added = metrics["plugins"]["lines"]["lines"]["added"]
+    removed = metrics["plugins"]["lines"]["lines"]["deleted"]
+    stars = metrics["plugins"]["stars"]["stars"]
 
+    left = [
+        [("shavi@ShavirPC:", COLOR_PROMPT), ("~$ neofetch", COLOR_PATH)],
         [],
-
-        [( "    :-::::.........................", COLOR_ASCII)],
-        [( "  :--:::.............................", COLOR_ASCII)],
-        [( " :-::::................................", COLOR_ASCII)],
-        [( " -::::.............................+-..", COLOR_ASCII)],
-        [( ".::::.............................==+=..", COLOR_ASCII)],
-        [( ".:::...............................*#+..", COLOR_ASCII)],
-        [( ".:::.........++*+:.......................", COLOR_ASCII)],
-        [( ".::.........=*+.*+.......................", COLOR_ASCII)],
-        [( ".::..........=**+........................", COLOR_ASCII)],
-        [( ".::........................:----::::.....", COLOR_ASCII)],
-        [( ".::.....................:============:..", COLOR_ASCII)],
-        [( " ::.................:-================..", COLOR_ASCII)],
-        [( " .::...............-=============--=-..", COLOR_ASCII)],
-        [( "   .:..............:========------:...", COLOR_ASCII)],
-        [( "     ................:--------::........", COLOR_ASCII)],
-        [( "       ................................", COLOR_ASCII)],
-
+        [("    :-::::.........................", COLOR_ASCII)],
+        [("  :--:::.............................", COLOR_ASCII)],
+        [(" :-::::................................", COLOR_ASCII)],
+        [(" -::::.............................+-..", COLOR_ASCII)],
+        [(" .::::.............................==+=..", COLOR_ASCII)],
+        [(" .:::...............................*#+..", COLOR_ASCII)],
+        [(" .:::.........++*+:.......................", COLOR_ASCII)],
         [],
-
-        [( "\n\n\n\n\nshavi@ShavirPC:", COLOR_PROMPT),
-         ("/mnt/c/Users/shavi$ sudo rm -rf / --no-preserve-root", COLOR_PATH)],
+        [("shavi@ShavirPC:", COLOR_PROMPT), ("~$ sudo rm -rf /", COLOR_PATH)],
     ]
 
-    # RIGHT INFO BLOCK (each row = list of spans)
-    right_block = [
-        [("\n", COLOR_MUTED)],
-        [("\n", COLOR_MUTED)],
-        [(f"{GITHUB_USERNAME}@github", COLOR_USER), ("―――――――――――――――――――――――――――――――――――――――", COLOR_MUTED)],
+    right = [
+        [(f"{GITHUB_USERNAME}@github", COLOR_USER)],
+        [],
         [("Kernel", COLOR_LABEL), (" : " + FULL_NAME, COLOR_VALUE)],
         [("Host", COLOR_LABEL), (" : " + HOST, COLOR_VALUE)],
         [("Uptime", COLOR_LABEL), (" : " + age, COLOR_VALUE)],
-        [("\n", COLOR_MUTED)],
-
-        [("Packages.Programming", COLOR_LABEL), (" : " + LANGUAGES, COLOR_VALUE)],
-        [("Packages.Computer", COLOR_LABEL), (" : " + OTHER_LANGS, COLOR_VALUE)],
-        [("Packages.Frameworks", COLOR_LABEL), (" : " + FRAMEWORKS, COLOR_VALUE)],
+        [],
+        [("Languages", COLOR_LABEL), (" : " + LANGUAGES, COLOR_VALUE)],
+        [("Frameworks", COLOR_LABEL), (" : " + FRAMEWORKS, COLOR_VALUE)],
         [("Hobbies", COLOR_LABEL), (" : " + HOBBIES, COLOR_VALUE)],
-        [("\n", COLOR_MUTED)],
-        
-        [(f"Contact Me:", COLOR_USER), ("――――――――――――――――――――――――――――――――――――――――――", COLOR_MUTED)],
-        [("Email.personal", COLOR_LABEL), (" : " + EMAIL_PERSONAL, COLOR_VALUE)],
-        [("Email.academic", COLOR_LABEL), (" : " + EMAIL_ACADEMIC, COLOR_VALUE)],
-        [("Socials.LinkedIn", COLOR_LABEL), (" : " + LINKEDIN, COLOR_VALUE)],
-        [("Socials.Instagram", COLOR_LABEL), (" : " + INSTAGRAM, COLOR_VALUE)],
-        [("Socials.Discord", COLOR_LABEL), (" : " + DISCORD, COLOR_VALUE)],
-        [("\n", COLOR_MUTED)],
-        
-        [("Profile Stats:", COLOR_USER), ("―――――――――――――――――――――――――――――――――――――――", COLOR_MUTED)],
-        [("Repos: ", COLOR_LABEL), (str(user["public_repos"]), COLOR_VALUE)],
-        [("Followers: ", COLOR_LABEL), (str(user["followers"]), COLOR_VALUE)],
-        [("Following: ", COLOR_LABEL), (str(user["following"]), COLOR_VALUE)],
+        [],
+        [("Repos", COLOR_LABEL), (" : " + str(user["public_repos"]), COLOR_VALUE)],
+        [("Stars", COLOR_LABEL), (" : " + str(stars), COLOR_VALUE)],
+        [("Commits", COLOR_LABEL), (" : " + str(commits), COLOR_VALUE)],
+        [("LOC +", COLOR_LABEL), (" : " + str(added), COLOR_VALUE)],
+        [("LOC -", COLOR_LABEL), (" : " + str(removed), COLOR_VALUE)],
     ]
 
-    lines = max(len(left_block), len(right_block))
-    height = PADDING * 6 + lines * LINE_HEIGHT
+    lines = max(len(left), len(right))
+    height = PADDING * 2 + lines * LINE_HEIGHT
 
     svg = [
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{SVG_WIDTH}" height="{height}">',
         f'<rect width="100%" height="100%" fill="{BG_COLOR}"/>',
-        f'''
-        <style>
-          text {{
-            font-family: {FONT_FAMILY};
-            font-size: {FONT_SIZE}px;
-            dominant-baseline: text-before-edge;
-            white-space: pre;
-            letter-spacing: 0.4px;
-          }}
-        </style>
-        '''
+        f'<style>text{{font-family:{FONT_FAMILY};font-size:{FONT_SIZE}px;white-space:pre}}</style>'
     ]
 
     y = PADDING
     for i in range(lines):
-        if i < len(left_block) and left_block[i]:
-            svg.append(svg_multicolor_line(PADDING, y, left_block[i]))
-
-        if i < len(right_block) and right_block[i]:
-            svg.append(svg_multicolor_line(420, y, right_block[i]))
-
+        if i < len(left):
+            svg.append(svg_line(PADDING, y, left[i]))
+        if i < len(right):
+            svg.append(svg_line(420, y, right[i]))
         y += LINE_HEIGHT
 
     svg.append("</svg>")
     return "\n".join(svg)
 
 # =========================
-# README UPDATE
-# =========================
-def update_readme():
-    readme_path = "README.md"
-    svg_url = f"https://raw.githubusercontent.com/{GITHUB_USERNAME}/{GITHUB_USERNAME}/main/neofetch.svg"
-
-    img_block = f"""
-<!-- neofetch:start -->
-<a href="https://github.com/{GITHUB_USERNAME}">
-  <img alt="{FULL_NAME}'s GitHub Profile README" src="{svg_url}" width="700"/>
-</a>
-<!-- neofetch:end -->
-""".strip()
-
-    with open(readme_path, "r", encoding="utf-8") as f:
-        content = f.read()
-
-    import re
-    new_content = re.sub(
-        r"<!-- neofetch:start -->.*?<!-- neofetch:end -->",
-        img_block,
-        content,
-        flags=re.DOTALL
-    )
-
-    with open(readme_path, "w", encoding="utf-8") as f:
-        f.write(new_content)
-
-# =========================
 # MAIN
 # =========================
 def main():
-    print("Generating neofetch.svg...")
     user = get_user_data()
+    metrics = load_metrics()
 
-    svg_content = generate_svg(user)
+    svg = generate_svg(user, metrics)
     with open("neofetch.svg", "w", encoding="utf-8") as f:
-        f.write(svg_content)
-
-    print("Updating README.md...")
-    update_readme()
-    print("Done!")
+        f.write(svg)
 
 if __name__ == "__main__":
     main()
