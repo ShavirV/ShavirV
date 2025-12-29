@@ -1,4 +1,4 @@
-import json
+timport json
 from datetime import date
 from calendar import monthrange
 
@@ -177,14 +177,14 @@ def generate_svg(metrics: dict) -> str:
         [("Repos", COLOR_LABEL),   (" : " + str(repos), COLOR_VALUE)],
         [("Stars", COLOR_LABEL),   (" : " + str(stars), COLOR_VALUE)],
         [("Commits", COLOR_LABEL), (" : " + str(commits), COLOR_VALUE)],
-        [("Lines of Code: ", COLOR_LABEL),   ("+" + str(added), COLOR_GREENISH), ("  |  ", COLOR_LABEL),   ("-" + str(removed), COLOR_REDDISH)]
+        [("Lines of Code: ", COLOR_LABEL),   ("+" + str(added), COLOR_GREENISH), ("  |  ", COLOR_VALUE),   ("-" + str(removed), COLOR_REDDISH)]
     ]
 
     # =========================
     # SVG BUILD
     # =========================
     lines = max(len(left), len(right))
-    height = PADDING * 2 + lines * LINE_HEIGHT
+    height = PADDING * 4 + lines * LINE_HEIGHT + 4
 
     svg = [
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{SVG_WIDTH}" height="{height}">',
