@@ -1,37 +1,39 @@
-name: GitHub Metrics
+name: GitHub Metrics (JSON + SVG)
 
 on:
   schedule:
-    - cron: "0 2 * * *" # daily at 02:00 UTC
+    - cron: "0 2 * * *"
   workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  metrics:
+  update-metrics:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: lowlighter/metrics@latest
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          user: ShavirV
+          python-version: "3.11"
 
-          # JSON output
-          output_format: json
-          output_file: metrics.json
-          output_condition: always
-          output_action: commit
+      - name: Install deps
+        run: pip install requests
 
-          #core stats
-          base: ""
+      - name: Fetch GitHub metrics
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/fetch_github_metrics.py
 
-          plugin_lines: yes
-          plugin_lines_sections: lines
-          plugin_lines_history_limit: 0
+      - name: Generate SVG
+        run: python scripts/generate_readme.py
 
-          plugin_stars: yes
-          plugin_stars_limit: 0
-
-          plugin_followup: yes
-          plugin_followup_sections: repositories
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add metrics.json neofetch.svg
+          git commit -m "Update GitHub metrics" || exit 0
+          git push
