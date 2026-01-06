@@ -17,7 +17,7 @@
 <text x="420" y="36"><tspan fill="#7a7a7a">
 </tspan></text>
 <text x="16" y="56"><tspan fill="#d9c811">    :-::::.........................          </tspan></text>
-<text x="420" y="56"><tspan fill="#bb9af7">ShavirV@github</tspan><tspan fill="#7a7a7a">―――――――――――――――――――――――――――――――――――――――</tspan></text>
+<text x="420" y="56"><tspan fill="#bb9af7">ShavirV@github</tspan><tspan fill="#7a7a7a">―――――――――――――――――――――――――――――――――――――――――――――</tspan></text>
 <text x="16" y="76"><tspan fill="#d9c811">  :--:::.............................        </tspan></text>
 <text x="420" y="76"><tspan fill="#e74856">Kernel</tspan><tspan fill="#d4d4d4"> : Shavir Vallabh</tspan></text>
 <text x="16" y="96"><tspan fill="#d9c811"> :-::::................................      </tspan></text>
@@ -30,7 +30,7 @@
 <text x="16" y="156"><tspan fill="#d9c811">.:::...............................*#+..     </tspan></text>
 <text x="420" y="156"><tspan fill="#e74856">Packages.Programming</tspan><tspan fill="#d4d4d4"> : C++, C#, Java, Python, JavaScript, PHP</tspan></text>
 <text x="16" y="176"><tspan fill="#d9c811">.:::.........++*+:.......................    </tspan></text>
-<text x="420" y="176"><tspan fill="#e74856">Packages.Computer</tspan><tspan fill="#d4d4d4"> : HTML/CSS, Bash, Powershell, SQL</tspan></text>
+<text x="420" y="176"><tspan fill="#e74856">Packages.General</tspan><tspan fill="#d4d4d4"> : HTML/CSS, Bash, Powershell, SQL</tspan></text>
 <text x="16" y="196"><tspan fill="#d9c811">.::.........=*+.*+.......................    </tspan></text>
 <text x="420" y="196"><tspan fill="#e74856">Packages.Frameworks</tspan><tspan fill="#d4d4d4"> : NodeJS, Angular, Django</tspan></text>
 <text x="16" y="216"><tspan fill="#d9c811">.::..........=**+........................    </tspan></text>
@@ -39,7 +39,7 @@
 <text x="420" y="236"><tspan fill="#7a7a7a">
 </tspan></text>
 <text x="16" y="256"><tspan fill="#d9c811">.::.....................:============:..     </tspan></text>
-<text x="420" y="256"><tspan fill="#bb9af7">Contact Me:</tspan><tspan fill="#7a7a7a">――――――――――――――――――――――――――――――――――――――――――</tspan></text>
+<text x="420" y="256"><tspan fill="#bb9af7">Contact Me</tspan><tspan fill="#7a7a7a">―――――――――――――――――――――――――――――――――――――――――――――――――</tspan></text>
 <text x="16" y="276"><tspan fill="#d9c811"> ::.................:-================..     </tspan></text>
 <text x="420" y="276"><tspan fill="#e74856">Email.personal</tspan><tspan fill="#d4d4d4"> : shavirvallabh05@gmail.com</tspan></text>
 <text x="16" y="296"><tspan fill="#d9c811"> .::...............-=============--=-..:----:</tspan></text>
@@ -54,15 +54,15 @@
 <text x="420" y="376"><tspan fill="#7a7a7a">
 </tspan></text>
 <text x="16" y="396"><tspan fill="#d9c811">      .:::.................................. </tspan></text>
-<text x="420" y="396"><tspan fill="#bb9af7">Profile Stats</tspan><tspan fill="#7a7a7a">―――――――――――――――――――――――――――――――――――――――</tspan></text>
+<text x="420" y="396"><tspan fill="#bb9af7">Profile Stats</tspan><tspan fill="#7a7a7a">――――――――――――――――――――――――――――――――――――――――――――――</tspan></text>
 <text x="16" y="416"><tspan fill="#d9c811">    .:...................................    </tspan></text>
 <text x="420" y="416"><tspan fill="#e74856">Repos</tspan><tspan fill="#d4d4d4"> : 4</tspan></text>
 <text x="16" y="436"><tspan fill="#d9c811">           .......................           </tspan></text>
 <text x="420" y="436"><tspan fill="#e74856">Stars</tspan><tspan fill="#d4d4d4"> : 1</tspan></text>
-<text x="420" y="456"><tspan fill="#e74856">Commits</tspan><tspan fill="#d4d4d4"> : 175</tspan></text>
+<text x="420" y="456"><tspan fill="#e74856">Commits</tspan><tspan fill="#d4d4d4"> : 176</tspan></text>
 <text x="16" y="476"><tspan fill="#16c60c">
 
 
 shavi@ShavirPC:</tspan><tspan fill="#3a96dd">/mnt/c/Users/shavi$ sudo rm -rf / --no-preserve-root</tspan></text>
-<text x="420" y="476"><tspan fill="#e74856">Lines of Code: </tspan><tspan fill="#0ee355">+12038</tspan><tspan fill="#d4d4d4">  |  </tspan><tspan fill="#e30e0e">-5389</tspan></text>
+<text x="420" y="476"><tspan fill="#e74856">Lines of Code: </tspan><tspan fill="#0ee355">+12002</tspan><tspan fill="#d4d4d4">  |  </tspan><tspan fill="#e30e0e">-5391</tspan></text>
 </svg>
