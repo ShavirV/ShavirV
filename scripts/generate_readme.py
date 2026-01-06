@@ -147,7 +147,7 @@ def generate_svg(metrics: dict) -> str:
         [("\n", COLOR_MUTED)],
 
         [(f"{GITHUB_USERNAME}@github", COLOR_USER),
-         ("―――――――――――――――――――――――――――――――――――――――", COLOR_MUTED)],
+         ("―――――――――――――――――――――――――――――――――――――――――――――", COLOR_MUTED)],
 
         [("Kernel", COLOR_LABEL), (" : " + FULL_NAME, COLOR_VALUE)],
         [("Host", COLOR_LABEL), (" : " + HOST, COLOR_VALUE)],
@@ -156,13 +156,13 @@ def generate_svg(metrics: dict) -> str:
         [("\n", COLOR_MUTED)],
 
         [("Packages.Programming", COLOR_LABEL), (" : " + LANGUAGES, COLOR_VALUE)],
-        [("Packages.Computer", COLOR_LABEL), (" : " + OTHER_LANGS, COLOR_VALUE)],
+        [("Packages.General", COLOR_LABEL), (" : " + OTHER_LANGS, COLOR_VALUE)],
         [("Packages.Frameworks", COLOR_LABEL), (" : " + FRAMEWORKS, COLOR_VALUE)],
         [("Hobbies", COLOR_LABEL), (" : " + HOBBIES, COLOR_VALUE)],
 
         [("\n", COLOR_MUTED)],
 
-        [(f"Contact Me:", COLOR_USER), ("――――――――――――――――――――――――――――――――――――――――――", COLOR_MUTED)],
+        [(f"Contact Me", COLOR_USER), ("―――――――――――――――――――――――――――――――――――――――――――――――――", COLOR_MUTED)],
         [("Email.personal", COLOR_LABEL), (" : " + EMAIL_PERSONAL, COLOR_VALUE)],
         [("Email.academic", COLOR_LABEL), (" : " + EMAIL_ACADEMIC, COLOR_VALUE)],
         [("Socials.LinkedIn", COLOR_LABEL), (" : " + LINKEDIN, COLOR_VALUE)],
@@ -172,7 +172,7 @@ def generate_svg(metrics: dict) -> str:
         [("\n", COLOR_MUTED)],
 
         [("Profile Stats", COLOR_USER),
-         ("―――――――――――――――――――――――――――――――――――――――", COLOR_MUTED)],
+         ("――――――――――――――――――――――――――――――――――――――――――――――", COLOR_MUTED)],
 
         [("Repos", COLOR_LABEL),   (" : " + str(repos), COLOR_VALUE)],
         [("Stars", COLOR_LABEL),   (" : " + str(stars), COLOR_VALUE)],
