@@ -23,7 +23,7 @@
 <text x="16" y="96"><tspan fill="#d9c811"> :-::::................................      </tspan></text>
 <text x="420" y="96"><tspan fill="#e74856">Host</tspan><tspan fill="#d4d4d4"> : University of Pretoria</tspan></text>
 <text x="16" y="116"><tspan fill="#d9c811"> -::::.............................+-..      </tspan></text>
-<text x="420" y="116"><tspan fill="#e74856">Uptime</tspan><tspan fill="#d4d4d4"> : 21y 0m 11d</tspan></text>
+<text x="420" y="116"><tspan fill="#e74856">Uptime</tspan><tspan fill="#d4d4d4"> : 21y 0m 12d</tspan></text>
 <text x="16" y="136"><tspan fill="#d9c811">.::::.............................==+=..     </tspan></text>
 <text x="420" y="136"><tspan fill="#7a7a7a">
 </tspan></text>
@@ -64,5 +64,5 @@
 
 
 shavi@ShavirPC:</tspan><tspan fill="#3a96dd">/mnt/c/Users/shavi$ sudo rm -rf / --no-preserve-root</tspan></text>
-<text x="420" y="476"><tspan fill="#e74856">Lines of Code: </tspan><tspan fill="#0ee355">+21826</tspan><tspan fill="#d4d4d4">  |  </tspan><tspan fill="#e30e0e">-5183</tspan></text>
+<text x="420" y="476"><tspan fill="#e74856">Lines of Code: </tspan><tspan fill="#0ee355">+21801</tspan><tspan fill="#d4d4d4">  |  </tspan><tspan fill="#e30e0e">-5177</tspan></text>
 </svg>
