@@ -134,8 +134,7 @@ def generate_svg(metrics: dict) -> str:
         [("           .......................           ", COLOR_ASCII)],
 
         [],
-        [".\n.\n.\n", COLOR_PROMPT],
-        [("shavi@ShavirPC:", COLOR_PROMPT),
+        [("\n\n\nshavi@ShavirPC:", COLOR_PROMPT),
          ("/mnt/c/Users/shavi$ sudo rm -rf / --no-preserve-root", COLOR_PATH)],
     ]
 
@@ -184,7 +183,7 @@ def generate_svg(metrics: dict) -> str:
     # SVG BUILD
     # =========================
     lines = max(len(left), len(right))
-    height = PADDING * 4 + lines * LINE_HEIGHT + 10
+    height = PADDING * 4 + lines * LINE_HEIGHT + 5
 
     svg = [
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{SVG_WIDTH}" height="{height}">',
