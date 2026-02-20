@@ -60,6 +60,6 @@
 <text x="16" y="436"><tspan fill="#d9c811">           .......................           </tspan></text>
 <text x="420" y="436"><tspan fill="#e74856">Stars</tspan><tspan fill="#d4d4d4"> : 2</tspan></text>
 <text x="420" y="456"><tspan fill="#e74856">Commits</tspan><tspan fill="#d4d4d4"> : 209</tspan></text>
-<text x="420" y="476"><tspan fill="#e74856">Lines of Code: </tspan><tspan fill="#0ee355">+35701</tspan><tspan fill="#d4d4d4">  |  </tspan><tspan fill="#e30e0e">-7314</tspan></text>
+<text x="420" y="476"><tspan fill="#e74856">Lines of Code: </tspan><tspan fill="#0ee355">+35702</tspan><tspan fill="#d4d4d4">  |  </tspan><tspan fill="#e30e0e">-7318</tspan></text>
 <text x="16" y="536"><tspan fill="#16c60c">shavi@ShavirPC:</tspan><tspan fill="#3a96dd">/mnt/c/Users/shavi$ sudo rm -rf / --no-preserve-root</tspan></text>
 </svg>
