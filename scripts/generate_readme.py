@@ -134,7 +134,10 @@ def generate_svg(metrics: dict) -> str:
         [("           .......................           ", COLOR_ASCII)],
 
         [],
-        [("\n\n\nshavi@ShavirPC:", COLOR_PROMPT),
+        [],
+        [],
+        [],
+        [("shavi@ShavirPC:", COLOR_PROMPT),
          ("/mnt/c/Users/shavi$ sudo rm -rf / --no-preserve-root", COLOR_PATH)],
     ]
 
