@@ -56,13 +56,13 @@
 <text x="16" y="396"><tspan fill="#d9c811">      .:::.................................. </tspan></text>
 <text x="420" y="396"><tspan fill="#bb9af7">Profile Stats</tspan><tspan fill="#7a7a7a">――――――――――――――――――――――――――――――――――――――――――――――</tspan></text>
 <text x="16" y="416"><tspan fill="#d9c811">    .:...................................    </tspan></text>
-<text x="420" y="416"><tspan fill="#e74856">Repos</tspan><tspan fill="#d4d4d4"> : 5</tspan></text>
+<text x="420" y="416"><tspan fill="#e74856">Repos</tspan><tspan fill="#d4d4d4"> : 6</tspan></text>
 <text x="16" y="436"><tspan fill="#d9c811">           .......................           </tspan></text>
-<text x="420" y="436"><tspan fill="#e74856">Stars</tspan><tspan fill="#d4d4d4"> : 1</tspan></text>
-<text x="420" y="456"><tspan fill="#e74856">Commits</tspan><tspan fill="#d4d4d4"> : 186</tspan></text>
+<text x="420" y="436"><tspan fill="#e74856">Stars</tspan><tspan fill="#d4d4d4"> : 2</tspan></text>
+<text x="420" y="456"><tspan fill="#e74856">Commits</tspan><tspan fill="#d4d4d4"> : 208</tspan></text>
 <text x="16" y="476"><tspan fill="#16c60c">
 
 
 shavi@ShavirPC:</tspan><tspan fill="#3a96dd">/mnt/c/Users/shavi$ sudo rm -rf / --no-preserve-root</tspan></text>
-<text x="420" y="476"><tspan fill="#e74856">Lines of Code: </tspan><tspan fill="#0ee355">+21777</tspan><tspan fill="#d4d4d4">  |  </tspan><tspan fill="#e30e0e">-5159</tspan></text>
+<text x="420" y="476"><tspan fill="#e74856">Lines of Code: </tspan><tspan fill="#0ee355">+35689</tspan><tspan fill="#d4d4d4">  |  </tspan><tspan fill="#e30e0e">-7306</tspan></text>
 </svg>
