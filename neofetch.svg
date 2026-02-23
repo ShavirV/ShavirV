@@ -23,7 +23,7 @@
 <text x="16" y="96"><tspan fill="#d9c811"> :-::::................................      </tspan></text>
 <text x="420" y="96"><tspan fill="#e74856">Host</tspan><tspan fill="#d4d4d4"> : University of Pretoria</tspan></text>
 <text x="16" y="116"><tspan fill="#d9c811"> -::::.............................+-..      </tspan></text>
-<text x="420" y="116"><tspan fill="#e74856">Uptime</tspan><tspan fill="#d4d4d4"> : 21y 0m 18d</tspan></text>
+<text x="420" y="116"><tspan fill="#e74856">Uptime</tspan><tspan fill="#d4d4d4"> : 21y 0m 19d</tspan></text>
 <text x="16" y="136"><tspan fill="#d9c811">.::::.............................==+=..     </tspan></text>
 <text x="420" y="136"><tspan fill="#7a7a7a">
 </tspan></text>
@@ -60,6 +60,6 @@
 <text x="16" y="436"><tspan fill="#d9c811">           .......................           </tspan></text>
 <text x="420" y="436"><tspan fill="#e74856">Stars</tspan><tspan fill="#d4d4d4"> : 2</tspan></text>
 <text x="420" y="456"><tspan fill="#e74856">Commits</tspan><tspan fill="#d4d4d4"> : 209</tspan></text>
-<text x="420" y="476"><tspan fill="#e74856">Lines of Code: </tspan><tspan fill="#0ee355">+35708</tspan><tspan fill="#d4d4d4">  |  </tspan><tspan fill="#e30e0e">-7325</tspan></text>
+<text x="420" y="476"><tspan fill="#e74856">Lines of Code: </tspan><tspan fill="#0ee355">+35712</tspan><tspan fill="#d4d4d4">  |  </tspan><tspan fill="#e30e0e">-7329</tspan></text>
 <text x="16" y="536"><tspan fill="#16c60c">shavi@ShavirPC:</tspan><tspan fill="#3a96dd">/mnt/c/Users/shavi$ sudo rm -rf / --no-preserve-root</tspan></text>
 </svg>
