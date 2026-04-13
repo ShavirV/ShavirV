@@ -2,17 +2,15 @@ import json
 from datetime import date
 from calendar import monthrange
 
-# =========================
-# USER CONFIGURATION
-# =========================
+# USER CONFIG
 GITHUB_USERNAME = "ShavirV"
 FULL_NAME = "Shavir Vallabh"
 HOST = "University of Pretoria"
 
-LANGUAGES = "C++, C#, Java, Python, JavaScript, PHP"
+LANGUAGES = "C, C++, Python, Java, C#, JavaScript/TS, PHP"
 OTHER_LANGS = "HTML/CSS, Bash, Powershell, SQL"
-FRAMEWORKS = "NodeJS, Angular, Django"
-HOBBIES = "Console Modding, Homebrew, Emulation"
+FRAMEWORKS = "React, NodeJS, Angular, Django"
+HOBBIES = "Console Modding, Homebrew, Emulation, HPC"
 
 EMAIL_PERSONAL = "shavirvallabh05@gmail.com"
 EMAIL_ACADEMIC = "u23718146@tuks.co.za"
@@ -22,9 +20,7 @@ INSTAGRAM = "@shavir.v"
 
 BIRTHDATE = date(2005, 2, 4)
 
-# =========================
 # SVG STYLING
-# =========================
 FONT_FAMILY = "monospace"
 FONT_SIZE = 14
 LINE_HEIGHT = 20
@@ -44,9 +40,7 @@ COLOR_USER      = "#bb9af7"
 COLOR_REDDISH   = "#e30e0e"
 COLOR_GREENISH  = "#0ee355"
 
-# =========================
 # HELPERS
-# =========================
 def calculate_age(birthdate: date) -> str:
     today = date.today()
     years = today.year - birthdate.year
@@ -141,9 +135,7 @@ def generate_svg(metrics: dict) -> str:
          ("/mnt/c/Users/shavi$ sudo rm -rf / --no-preserve-root", COLOR_PATH)],
     ]
 
-    # =========================
     # RIGHT INFO BLOCK
-    # =========================
     right = [
         [("\n", COLOR_MUTED)],
         [("\n", COLOR_MUTED)],
@@ -182,9 +174,7 @@ def generate_svg(metrics: dict) -> str:
         [("Lines of Code: ", COLOR_LABEL),   ("+" + str(added), COLOR_GREENISH), ("  |  ", COLOR_VALUE),   ("-" + str(removed), COLOR_REDDISH)]
     ]
 
-    # =========================
     # SVG BUILD
-    # =========================
     lines = max(len(left), len(right))
     height = PADDING * 4 + lines * LINE_HEIGHT + 5
 
@@ -215,9 +205,7 @@ def generate_svg(metrics: dict) -> str:
     svg.append("</svg>")
     return "\n".join(svg)
 
-# =========================
 # MAIN
-# =========================
 def main():
     metrics = load_metrics()
     svg = generate_svg(metrics)
