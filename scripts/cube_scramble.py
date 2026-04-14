@@ -3,9 +3,9 @@ import hashlib
 from datetime import date
 
 SVG_WIDTH   = 1000
-SVG_HEIGHT  = 620
+SVG_HEIGHT  = 700
 
-CELL        = 54
+CELL        = 58
 GAP         = 4
 
 FONT        = "monospace"
@@ -20,8 +20,8 @@ COLOR_VALUE  = "#d4d4d4"
 COLOR_MUTED  = "#7a7a7a"
 
 MOVE_COL    = "#d4d4d4"
-PRIME_COL   = "#bb9af7" # moves with '
-DOUBLE_COL  = "#e0af68" # moves with 2
+PRIME_COL   = "#bb9af7"
+DOUBLE_COL  = "#e0af68"
 
 FACE_COLORS = {
     "U": "#f0f0f0",
@@ -51,9 +51,6 @@ def daily_scramble(seed_date: date):
         moves.append(face + rng.choice(SUFFIXES))
     return moves
 
-# =========================
-# CUBE STATE
-# =========================
 def solved_state():
     return {f: [f] * 9 for f in "UDFBLR"}
 
@@ -81,12 +78,18 @@ def _apply_single(s, face, ccw=False):
     s[face] = rotate_face_cw(s[face])
 
     if face == "U":
-        s["F"][0:3], s["R"][0:3], s["B"][0:3], s["L"][0:3] = \
-        s["R"][0:3], s["B"][0:3], s["L"][0:3], s["F"][0:3]
+        tmp = s["F"][0:3]
+        s["F"][0:3] = s["R"][0:3]
+        s["R"][0:3] = s["B"][0:3]
+        s["B"][0:3] = s["L"][0:3]
+        s["L"][0:3] = tmp
 
     elif face == "D":
-        s["F"][6:9], s["L"][6:9], s["B"][6:9], s["R"][6:9] = \
-        s["L"][6:9], s["B"][6:9], s["R"][6:9], s["F"][6:9]
+        tmp = s["F"][6:9]
+        s["F"][6:9] = s["L"][6:9]
+        s["L"][6:9] = s["B"][6:9]
+        s["B"][6:9] = s["R"][6:9]
+        s["R"][6:9] = tmp
 
     elif face == "F":
         u = [s["U"][6], s["U"][7], s["U"][8]]
@@ -132,13 +135,13 @@ def shade(color, factor):
 
 def draw_cube_3d(state, ox, oy):
     out = []
-    size = 26
+    size = 30
     dx = size
-    dy = size * 0.5
+    dy = size // 2
 
     def poly(points, color):
         pts = " ".join(f"{x},{y}" for x, y in points)
-        return f'<polygon points="{pts}" fill="{color}" stroke="{GRID_STROKE}" stroke-width="1"/>'
+        return f'<polygon points="{pts}" fill="{color}" stroke="{GRID_STROKE}" stroke-width="1.5"/>'
 
     #faces
     U, F, R = state["U"], state["F"], state["R"]
@@ -153,10 +156,11 @@ def draw_cube_3d(state, ox, oy):
                 (x+dx, y-dy),
                 (x+2*dx, y),
                 (x+dx, y+dy),
-            ], shade(FACE_COLORS[U[r*3+c]], 1.15)))
+            ], FACE_COLORS[U[r*3+c]]))
 
     #FRONT
     base_y = oy + 3*dy
+
     for r in range(3):
         for c in range(3):
             x = ox + c*dx
@@ -178,7 +182,7 @@ def draw_cube_3d(state, ox, oy):
                 (x+dx, y),
                 (x+dx, y+size),
                 (x, y-dy+size),
-            ], shade(FACE_COLORS[R[r*3+c]], 0.75)))
+            ], FACE_COLORS[R[r*3+c]]))
 
     return "\n".join(out)
 
@@ -190,7 +194,7 @@ def generate_svg(today):
     step = CELL + GAP
     face_w = 3 * step - GAP
 
-    ox, oy = 80, 100
+    ox, oy = 60, 90
 
     positions = {
         "U": (ox + face_w, oy),
@@ -214,10 +218,18 @@ def generate_svg(today):
     svg = [
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{SVG_WIDTH}" height="{SVG_HEIGHT}">',
         f'<rect width="100%" height="100%" fill="{BG}"/>',
-        f'<style>text {{ font-family:{FONT}; font-size:14px; }}</style>',
-
-        #header
-        f'<text x="15" y="15" fill="{COLOR_PROMPT}">shavi@ShavirPC:</text>',
+        f'''
+        <style>
+            text {{
+                font-family: {FONT};
+                font-size: 14px;
+                dominant-baseline: text-before-edge;
+                white-space: pre;
+                letter-spacing: 0.2px;
+            }}
+        </style>
+        ''',
+        f'<text x="15" y="15" fill="{COLOR_PROMPT}" font-weight="bold">shavi@ShavirPC:</text>',
         f'<text x="165" y="15" fill="{COLOR_PATH}">~$ cube --daily --date={today}</text>',
     ]
 
@@ -225,47 +237,59 @@ def generate_svg(today):
     for f, (x,y) in positions.items():
         svg.append(draw_face(state[f], x, y))
 
-    #3D cube
-    svg.append(draw_cube_3d(state, 760, 200))
+    svg.append(draw_cube_3d(state, 760, 220))
 
-    #metadata
-    meta_y = 350
+    meta_y = 380
     lines = [
-        f"cube.session      : daily #{today.toordinal()}",
-        f"cube.metric       : HTM {len(scramble)}",
-        f"cube.state        : scrambled",
-        f"cube.generated    : {today}"
+        ("cube.session", f"daily #{today.toordinal()}"),
+        ("cube.metric", f"HTM {len(scramble)}"),
+        ("cube.state", "scrambled"),
+        ("cube.generated", str(today))
     ]
 
-    for i, line in enumerate(lines):
-        svg.append(f'<text x="720" y="{meta_y+i*20}" fill="{COLOR_VALUE}">{line}</text>')
+    for i, (label, value) in enumerate(lines):
+        y = meta_y + i * 24
+        svg.append(
+            f'<text x="700" y="{y}">'
+            f'<tspan fill="{COLOR_LABEL}">{label:<18}</tspan>'
+            f'<tspan fill="{COLOR_VALUE}">: {value}</tspan>'
+            f'</text>'
+        )
 
-    #scramble wrapped
-    y = 520
-    svg.append(f'<text x="15" y="{y}" fill="{COLOR_LABEL}">scramble:</text>')
-    x = 120
+    scramble_label_y = 575
+    svg.append(
+        f'<text x="15" y="{scramble_label_y}" fill="{COLOR_LABEL}">scramble:</text>'
+    )
+
+    start_x = 120
+    row_y = 605
 
     for i, move in enumerate(scramble):
-        if i % 6 == 0:
-            y += 18
-            x = 120
+        if i > 0 and i % 8 == 0:
+            row_y += 24
+            start_x = 120
 
         col = MOVE_COL
-        if "'" in move: col = PRIME_COL
-        if "2" in move: col = DOUBLE_COL
+        if "'" in move:
+            col = PRIME_COL
+        elif "2" in move:
+            col = DOUBLE_COL
 
-        svg.append(f'<text x="{x}" y="{y}" fill="{col}">{move}</text>')
-        x += 32
+        svg.append(
+            f'<text x="{start_x}" y="{row_y}" fill="{col}">{move}</text>'
+        )
+        start_x += 38
 
-    #footer
-    svg.append(f'<text x="15" y="{SVG_HEIGHT-20}" fill="{COLOR_PROMPT}">shavi@ShavirPC:~$</text>')
+    svg.append(
+        f'<text x="15" y="{SVG_HEIGHT-28}" fill="{COLOR_PROMPT}" font-weight="bold">shavi@ShavirPC:~$</text>'
+    )
 
     svg.append("</svg>")
     return "\n".join(svg)
 
 def main():
     today = date.today()
-    with open("cube_scramble.svg", "w") as f:
+    with open("cube_scramble.svg", "w", encoding="utf-8") as f:
         f.write(generate_svg(today))
 
 if __name__ == "__main__":
