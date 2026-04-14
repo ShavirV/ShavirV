@@ -59,7 +59,7 @@
 <text x="420" y="416"><tspan fill="#e74856">Repos</tspan><tspan fill="#d4d4d4"> : 10</tspan></text>
 <text x="16" y="436"><tspan fill="#d9c811">           .......................           </tspan></text>
 <text x="420" y="436"><tspan fill="#e74856">Stars</tspan><tspan fill="#d4d4d4"> : 1</tspan></text>
-<text x="420" y="456"><tspan fill="#e74856">Commits</tspan><tspan fill="#d4d4d4"> : 284</tspan></text>
-<text x="420" y="476"><tspan fill="#e74856">Lines of Code: </tspan><tspan fill="#0ee355">+219367</tspan><tspan fill="#d4d4d4">  |  </tspan><tspan fill="#e30e0e">-167389</tspan></text>
+<text x="420" y="456"><tspan fill="#e74856">Commits</tspan><tspan fill="#d4d4d4"> : 286</tspan></text>
+<text x="420" y="476"><tspan fill="#e74856">Lines of Code: </tspan><tspan fill="#0ee355">+219709</tspan><tspan fill="#d4d4d4">  |  </tspan><tspan fill="#e30e0e">-167701</tspan></text>
 <text x="16" y="536"><tspan fill="#16c60c">shavi@ShavirPC:</tspan><tspan fill="#3a96dd">/mnt/c/Users/shavi$ sudo rm -rf / --no-preserve-root</tspan></text>
 </svg>
