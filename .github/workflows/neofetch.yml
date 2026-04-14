@@ -35,6 +35,9 @@ jobs:
       - name: Generate SVG and README
         run: python scripts/generate_readme.py
 
+      - name: Generate cube scramble
+        run: python scripts/cube_scramble.py
+
       - name: Commit changes
         run: |
           git config user.name "github-actions"
