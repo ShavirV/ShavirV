@@ -17,13 +17,13 @@
 <text x="16" y="96"><tspan fill="#e74856">cube.metric</tspan><tspan fill="#d4d4d4"> : HTM 20</tspan></text>
 <text x="16" y="116"><tspan fill="#e74856">cube.state</tspan><tspan fill="#d4d4d4"> : scrambled</tspan></text>
 <text x="16" y="136"><tspan fill="#e74856">cube.seed</tspan><tspan fill="#d4d4d4"> : md5(date)</tspan></text>
-<text x="16" y="176"><tspan fill="#bb9af7">solver.log</tspan><tspan fill="#7a7a7a">──────────────────────────────</tspan></text>
+<text x="16" y="176"><tspan fill="#bb9af7">solver.log</tspan><tspan fill="#7a7a7a">────────────────────────────────</tspan></text>
 <text x="16" y="196"><tspan fill="#7a7a7a">&gt; loading cube state...</tspan></text>
 <text x="16" y="216"><tspan fill="#7a7a7a">&gt; applying scramble sequence...</tspan></text>
 <text x="16" y="236"><tspan fill="#7a7a7a">&gt; validating permutation validity...</tspan></text>
 <text x="16" y="256"><tspan fill="#7a7a7a">&gt; render target: cube_scramble.svg</tspan></text>
 <text x="16" y="276"><tspan fill="#d4d4d4">&gt; status: OK</tspan></text>
-<text x="16" y="316"><tspan fill="#bb9af7">scramble.sequence</tspan><tspan fill="#7a7a7a">──────────────────────────────</tspan></text>
+<text x="16" y="316"><tspan fill="#bb9af7">scramble.sequence</tspan><tspan fill="#7a7a7a">─────────────────────────</tspan></text>
 <text x="16" y="346" fill="#d4d4d4">U</text>
 <text x="58" y="346" fill="#e0af68">L2</text>
 <text x="100" y="346" fill="#d4d4d4">F</text>
