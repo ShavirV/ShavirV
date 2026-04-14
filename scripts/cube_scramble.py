@@ -7,8 +7,8 @@ import random
 import hashlib
 from datetime import date
 
-SVG_WIDTH   = 460
-SVG_HEIGHT  = 220
+SVG_WIDTH   = 1000
+SVG_HEIGHT  = 500
 CELL        = 28          #px per sticker
 GAP         = 2           #px between stickers
 FONT        = "monospace"
@@ -23,9 +23,9 @@ DOUBLE_COL  = "#3a96dd"   # moves with 2
 # Sticker colours per face (solved state)
 FACE_COLORS = {
     "U": "#f0f0f0",   # white
-    "D": "#f5dd08",   # yellow
-    "F": "#16c60c",   # green
-    "B": "#3a96dd",   # blue
+    "D": "#e0ca02",   # yellow
+    "F": "#1ebe15",   # green
+    "B": "#166daf",   # blue
     "L": "#e87722",   # orange
     "R": "#e30e0e",   # red
 }
@@ -190,7 +190,7 @@ def generate_svg(today: date) -> str:
         f'<style>text {{ font-family: {FONT}; dominant-baseline: text-before-edge; }}</style>',
         # Title
         f'<text x="10" y="10" font-size="12" fill="{TITLE_COL}">shavi@ShavirPC:</text>',
-        f'<text x="130" y="10" font-size="12" fill="#3a96dd">~$ cube --scramble --date={today}</text>',
+        f'<text x="130" y="10" font-size="12" fill="#3a96dd">~$ cube --daily_scramble --date={today}</text>',
     ]
 
     # Draw faces
