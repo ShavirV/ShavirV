@@ -168,10 +168,10 @@ def generate_svg(metrics: dict) -> str:
         [("Profile Stats", COLOR_USER),
          ("――――――――――――――――――――――――――――――――――――――――――――――", COLOR_MUTED)],
 
-        [("Repos", COLOR_LABEL),   (" : " + str(repos), COLOR_VALUE)],
-        [("Stars", COLOR_LABEL),   (" : " + str(stars), COLOR_VALUE)],
-        [("Commits", COLOR_LABEL), (" : " + str(commits), COLOR_VALUE)],
-        [("Lines of Code: ", COLOR_LABEL),   ("+" + str(added), COLOR_GREENISH), ("  |  ", COLOR_VALUE),   ("-" + str(removed), COLOR_REDDISH)]
+        [("Public.Repos", COLOR_LABEL),   (" : " + str(repos), COLOR_VALUE)],
+        [("Public.Stars", COLOR_LABEL),   (" : " + str(stars), COLOR_VALUE)],
+        [("Public.Commits", COLOR_LABEL), (" : " + str(commits), COLOR_VALUE)],
+        [("Public.Lines of Code: ", COLOR_LABEL),   ("+" + str(added), COLOR_GREENISH), ("  |  ", COLOR_VALUE),   ("-" + str(removed), COLOR_REDDISH)]
     ]
 
     # SVG BUILD
