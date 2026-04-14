@@ -23,18 +23,18 @@
 <text x="16" y="96"><tspan fill="#d9c811"> :-::::................................      </tspan></text>
 <text x="420" y="96"><tspan fill="#e74856">Host</tspan><tspan fill="#d4d4d4"> : University of Pretoria</tspan></text>
 <text x="16" y="116"><tspan fill="#d9c811"> -::::.............................+-..      </tspan></text>
-<text x="420" y="116"><tspan fill="#e74856">Uptime</tspan><tspan fill="#d4d4d4"> : 21y 2m 9d</tspan></text>
+<text x="420" y="116"><tspan fill="#e74856">Uptime</tspan><tspan fill="#d4d4d4"> : 21y 2m 10d</tspan></text>
 <text x="16" y="136"><tspan fill="#d9c811">.::::.............................==+=..     </tspan></text>
 <text x="420" y="136"><tspan fill="#7a7a7a">
 </tspan></text>
 <text x="16" y="156"><tspan fill="#d9c811">.:::...............................*#+..     </tspan></text>
-<text x="420" y="156"><tspan fill="#e74856">Packages.Programming</tspan><tspan fill="#d4d4d4"> : C++, C#, Java, Python, JavaScript, PHP</tspan></text>
+<text x="420" y="156"><tspan fill="#e74856">Packages.Programming</tspan><tspan fill="#d4d4d4"> : C, C++, Python, Java, C#, JavaScript/TS, PHP</tspan></text>
 <text x="16" y="176"><tspan fill="#d9c811">.:::.........++*+:.......................    </tspan></text>
 <text x="420" y="176"><tspan fill="#e74856">Packages.General</tspan><tspan fill="#d4d4d4"> : HTML/CSS, Bash, Powershell, SQL</tspan></text>
 <text x="16" y="196"><tspan fill="#d9c811">.::.........=*+.*+.......................    </tspan></text>
-<text x="420" y="196"><tspan fill="#e74856">Packages.Frameworks</tspan><tspan fill="#d4d4d4"> : NodeJS, Angular, Django</tspan></text>
+<text x="420" y="196"><tspan fill="#e74856">Packages.Frameworks</tspan><tspan fill="#d4d4d4"> : React, NodeJS, Angular, Django</tspan></text>
 <text x="16" y="216"><tspan fill="#d9c811">.::..........=**+........................    </tspan></text>
-<text x="420" y="216"><tspan fill="#e74856">Hobbies</tspan><tspan fill="#d4d4d4"> : Console Modding, Homebrew, Emulation</tspan></text>
+<text x="420" y="216"><tspan fill="#e74856">Hobbies</tspan><tspan fill="#d4d4d4"> : Console Modding, Homebrew, Emulation, HPC</tspan></text>
 <text x="16" y="236"><tspan fill="#d9c811">.::........................:----::::.....    </tspan></text>
 <text x="420" y="236"><tspan fill="#7a7a7a">
 </tspan></text>
@@ -59,7 +59,7 @@
 <text x="420" y="416"><tspan fill="#e74856">Repos</tspan><tspan fill="#d4d4d4"> : 6</tspan></text>
 <text x="16" y="436"><tspan fill="#d9c811">           .......................           </tspan></text>
 <text x="420" y="436"><tspan fill="#e74856">Stars</tspan><tspan fill="#d4d4d4"> : 1</tspan></text>
-<text x="420" y="456"><tspan fill="#e74856">Commits</tspan><tspan fill="#d4d4d4"> : 210</tspan></text>
-<text x="420" y="476"><tspan fill="#e74856">Lines of Code: </tspan><tspan fill="#0ee355">+34941</tspan><tspan fill="#d4d4d4">  |  </tspan><tspan fill="#e30e0e">-6677</tspan></text>
+<text x="420" y="456"><tspan fill="#e74856">Commits</tspan><tspan fill="#d4d4d4"> : 211</tspan></text>
+<text x="420" y="476"><tspan fill="#e74856">Lines of Code: </tspan><tspan fill="#0ee355">+34938</tspan><tspan fill="#d4d4d4">  |  </tspan><tspan fill="#e30e0e">-6686</tspan></text>
 <text x="16" y="536"><tspan fill="#16c60c">shavi@ShavirPC:</tspan><tspan fill="#3a96dd">/mnt/c/Users/shavi$ sudo rm -rf / --no-preserve-root</tspan></text>
 </svg>
