@@ -8,19 +8,24 @@ import hashlib
 from datetime import date
 
 SVG_WIDTH   = 1000
-SVG_HEIGHT  = 550
-CELL        = 42          #px per sticker
-GAP         = 3           #px between stickers
+SVG_HEIGHT  = 620
+CELL        = 42
+GAP         = 3
 FONT        = "monospace"
+FONT_SIZE   = 14
+LINE_HEIGHT = 20
+PADDING     = 16
+
 BG          = "#262d33"
 GRID_STROKE = "#1a2025"
 
 # Text colors
 COLOR_PROMPT = "#16c60c"
 COLOR_PATH   = "#3a96dd"
-COLOR_LABEL  = "#6ca0c7"
+COLOR_LABEL  = "#e74856"
 COLOR_VALUE  = "#d4d4d4"
 COLOR_MUTED  = "#7a7a7a"
+COLOR_USER   = "#bb9af7"
 
 MOVE_COL    = "#d4d4d4"
 PRIME_COL   = "#bb9af7"
@@ -28,22 +33,24 @@ DOUBLE_COL  = "#e0af68"
 
 # Sticker colours per face (solved state)
 FACE_COLORS = {
-    "U": "#f0f0f0",   # white
-    "D": "#e0ca02",   # yellow
-    "F": "#1ebe15",   # green
-    "B": "#166daf",   # blue
-    "L": "#e87722",   # orange
-    "R": "#e30e0e",   # red
+    "U": "#f0f0f0",
+    "D": "#e0ca02",
+    "F": "#1ebe15",
+    "B": "#166daf",
+    "L": "#e87722",
+    "R": "#e30e0e",
 }
 
 SCRAMBLE_LEN = 20
 MOVES_BASE   = ["U", "D", "F", "B", "L", "R"]
 SUFFIXES     = ["", "'", "2"]
+SEED = ""
 
 #generate scramble
 def daily_scramble(seed_date: date) -> list[str]:
     """Deterministic scramble based on date so it's stable all day."""
     seed = int(hashlib.md5(str(seed_date).encode()).hexdigest(), 16)
+    SEED = seed
     rng  = random.Random(seed)
     moves = []
     last  = ""
@@ -86,16 +93,13 @@ def _apply_single(state, face, ccw=False):
     s = state
 
     if ccw:
-        # CW applied 3 times = CCW
         _apply_single(s, face, False)
         _apply_single(s, face, False)
         _apply_single(s, face, False)
         return
 
-    #rotate the face itself
     s[face] = rotate_face_cw(s[face])
 
-    #cycle adjacent edges
     if face == "U":
         tmp = [s["B"][0], s["B"][1], s["B"][2]]
         s["B"][0], s["B"][1], s["B"][2] = s["R"][0], s["R"][1], s["R"][2]
@@ -146,6 +150,14 @@ def escape(t):
     return t.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
 
+def svg_line(x: int, y: int, spans: list) -> str:
+    tspans = "".join(
+        f'<tspan fill="{color}">{escape(text)}</tspan>'
+        for text, color in spans
+    )
+    return f'<text x="{x}" y="{y}">{tspans}</text>'
+
+
 def draw_face(face_stickers, ox, oy):
     """Return SVG rects for a 3x3 face at offset (ox, oy)."""
     out = []
@@ -167,22 +179,18 @@ def generate_svg(today: date) -> str:
     scramble = daily_scramble(today)
     state    = scramble_state(scramble)
 
-    step     = CELL + GAP
-    face_w   = 3 * step - GAP   # width of one face block
-    face_h   = face_w
+    step   = CELL + GAP
+    face_w = 3 * step - GAP
+    face_h = face_w
 
-    # Net layout:
-    #        [U]
-    #   [L] [F] [R] [B]
-    #        [D]
-    # Origin of the net, centred in SVG
-    net_total_w = 4 * (face_w + GAP * 2)  # increased spacing between faces
-    net_total_h = 3 * (face_h + GAP * 2)
-    ox = (SVG_WIDTH - net_total_w) // 2 + GAP * 2
-    oy = 60   # leave room for title
+    left_x = PADDING
+    right_x = 430
 
     face_spacing_x = face_w + GAP * 3
     face_spacing_y = face_h + GAP * 3
+
+    ox = right_x + 10
+    oy = 70
 
     face_positions = {
         "U": (ox + face_spacing_x,           oy),
@@ -193,6 +201,35 @@ def generate_svg(today: date) -> str:
         "D": (ox + face_spacing_x,           oy + 2 * face_spacing_y),
     }
 
+    left_block = [
+        [("shavi@ShavirPC:", COLOR_PROMPT),
+         ("/mnt/c/Users/shavi:~$ cube --daily --date=", COLOR_PATH),
+         (str(today), COLOR_VALUE)],
+
+        [],
+        [("cube.session", COLOR_USER),
+         ("──────────────────────────────", COLOR_MUTED)],
+
+        [("cube.mode", COLOR_LABEL), (" : random daily", COLOR_VALUE)],
+        [("cube.metric", COLOR_LABEL), (" : HTM " + str(len(scramble)), COLOR_VALUE)],
+        [("cube.state", COLOR_LABEL), (" : scrambled", COLOR_VALUE)],
+        [("cube.seed", COLOR_LABEL), (" : md5(date)", COLOR_VALUE)],
+
+        [],
+        [("solver.log", COLOR_USER),
+         ("──────────────────────────────", COLOR_MUTED)],
+
+        [("> loading cube state...", COLOR_MUTED)],
+        [("> applying scramble sequence...", COLOR_MUTED)],
+        [("> validating permutation validity...", COLOR_MUTED)],
+        [("> render target: cube_scramble.svg", COLOR_MUTED)],
+        [("> status: OK", COLOR_VALUE)],
+
+        [],
+        [("scramble.sequence", COLOR_USER),
+         ("──────────────────────────────", COLOR_MUTED)],
+    ]
+
     svg_parts = [
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{SVG_WIDTH}" height="{SVG_HEIGHT}">',
         f'<rect width="100%" height="100%" fill="{BG}"/>',
@@ -200,69 +237,63 @@ def generate_svg(today: date) -> str:
         <style>
             text {{
                 font-family: {FONT};
-                font-size: 14px;
-                dominant-baseline: text-before-edge;
+                font-size: {FONT_SIZE}px;
                 white-space: pre;
-                letter-spacing: 0.2px;
+                dominant-baseline: text-before-edge;
+                letter-spacing: 0.3px;
             }}
         </style>
-        ''',
-        # Title
-        f'<text x="15" y="15" fill="{COLOR_PROMPT}" font-weight="bold">shavi@ShavirPC:</text>',
-        f'<text x="165" y="15" fill="{COLOR_PATH}">~$ cube --daily --date={today}</text>',
+        '''
     ]
 
-    # Draw faces
-    for face, (fx, fy) in face_positions.items():
-        svg_parts.append(draw_face(state[face], fx, fy))
+    y = PADDING
+    for row in left_block:
+        if row:
+            svg_parts.append(svg_line(left_x, y, row))
+        y += LINE_HEIGHT
 
-    # Metadata section
-    meta_y = oy + net_total_h + 20
-    lines = [
-        ("cube.session", f"daily #{today.toordinal()}"),
-        ("cube.metric", f"HTM {len(scramble)}"),
-        ("cube.state", "scrambled"),
-        ("cube.generated", str(today))
-    ]
+    preview_y = y + 10
+    px = left_x
+    py = preview_y
 
-    for i, (label, value) in enumerate(lines):
-        y = meta_y + i * 24
-        svg_parts.append(
-            f'<text x="15" y="{y}">'
-            f'<tspan fill="{COLOR_LABEL}">{label:<18}</tspan>'
-            f'<tspan fill="{COLOR_VALUE}">: {value}</tspan>'
-            f'</text>'
-        )
-
-    # Scramble string at bottom — colour-coded
-    scramble_y = meta_y + len(lines) * 24 + 20
-    svg_parts.append(
-        f'<text x="15" y="{scramble_y}" fill="{COLOR_LABEL}">scramble:</text>'
-    )
-    
-    move_x = 120
-    row_y = scramble_y + 30
-    
     for i, move in enumerate(scramble):
-        if i > 0 and i % 8 == 0:
-            row_y += 24
-            move_x = 120
-        
+        if i > 0 and i % 6 == 0:
+            py += 22
+            px = left_x
+
         if "'" in move:
             col = PRIME_COL
         elif "2" in move:
             col = DOUBLE_COL
         else:
             col = MOVE_COL
-        
-        svg_parts.append(
-            f'<text x="{move_x}" y="{row_y}" fill="{col}">{escape(move)}</text>'
-        )
-        move_x += 38
 
-    # Bottom prompt
+        svg_parts.append(
+            f'<text x="{px}" y="{py}" fill="{col}">{escape(move)}</text>'
+        )
+        px += 42
+
+    for face, (fx, fy) in face_positions.items():
+        svg_parts.append(draw_face(state[face], fx, fy))
+
+    meta_y = 470
+    lines = [
+        ("cube.session", f"daily #{today.toordinal()}"),
+        ("cube.generated", str(today)),
+        ("cube.output", "cube_scramble.svg"),
+    ]
+
+    for i, (label, value) in enumerate(lines):
+        yy = meta_y + i * 22
+        svg_parts.append(
+            svg_line(PADDING, yy, [
+                (f"{label:<18}", COLOR_LABEL),
+                (" : " + value, COLOR_VALUE)
+            ])
+        )
+
     svg_parts.append(
-        f'<text x="15" y="{SVG_HEIGHT-28}" fill="{COLOR_PROMPT}" font-weight="bold">shavi@ShavirPC:~$</text>'
+        f'<text x="{PADDING}" y="{SVG_HEIGHT-28}" fill="{COLOR_PROMPT}" font-weight="bold">shavi@ShavirPC:~$</text>'
     )
 
     svg_parts.append("</svg>")
