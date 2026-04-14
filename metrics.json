@@ -1,17 +1,20 @@
 {
   "user": "ShavirV",
-  "generated_at": "2026-04-14T04:49:38.581656Z",
-  "repos": 6,
+  "generated_at": "2026-04-14T12:11:34.348453Z",
+  "repos": 10,
   "stars": 1,
   "forks": 0,
-  "commits": 211,
-  "loc_added": 34938,
-  "loc_removed": 6686,
+  "commits": 276,
+  "loc_added": 218810,
+  "loc_removed": 167257,
   "followers": 9,
   "following": 16,
   "top_languages": {
     "Python": 4,
+    "Java": 2,
     "PHP": 1,
-    "C++": 1
+    "C++": 1,
+    "Makefile": 1,
+    "C": 1
   }
 }
