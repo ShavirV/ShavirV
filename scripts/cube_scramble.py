@@ -217,7 +217,7 @@ def generate_svg(today: date) -> str:
 
         [],
         [("solver.log", COLOR_USER),
-         ("──────────────────────────────", COLOR_MUTED)],
+         ("────────────────────────────────", COLOR_MUTED)],
 
         [("> loading cube state...", COLOR_MUTED)],
         [("> applying scramble sequence...", COLOR_MUTED)],
@@ -227,7 +227,7 @@ def generate_svg(today: date) -> str:
 
         [],
         [("scramble.sequence", COLOR_USER),
-         ("──────────────────────────────", COLOR_MUTED)],
+         ("─────────────────────────", COLOR_MUTED)],
     ]
 
     svg_parts = [
