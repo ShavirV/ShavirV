@@ -8,13 +8,13 @@ import hashlib
 from datetime import date
 
 SVG_WIDTH   = 1000
-SVG_HEIGHT  = 500
-CELL        = 28          #px per sticker
-GAP         = 2           #px between stickers
+SVG_HEIGHT  = 550
+CELL        = 42          #px per sticker (increased from 28)
+GAP         = 3           #px between stickers (increased from 2)
 FONT        = "monospace"
 BG          = "#262d33"
 GRID_STROKE = "#1a2025"
-LABEL_COL   = "#7a7a7a"
+LABEL_COL   = "#9a9a9a"
 TITLE_COL   = "#16c60c"
 MOVE_COL    = "#d4d4d4"
 PRIME_COL   = "#ba8ad6"   # moves with '
@@ -151,7 +151,7 @@ def draw_face(face_stickers, ox, oy):
         color = FACE_COLORS[sticker]
         out.append(
             f'<rect x="{x}" y="{y}" width="{CELL}" height="{CELL}" '
-            f'rx="3" fill="{color}" stroke="{GRID_STROKE}" stroke-width="1.5"/>'
+            f'rx="4" fill="{color}" stroke="{GRID_STROKE}" stroke-width="2"/>'
         )
     return "\n".join(out)
 
@@ -170,18 +170,21 @@ def generate_svg(today: date) -> str:
     #   [L] [F] [R] [B]
     #        [D]
     # Origin of the net, centred in SVG
-    net_total_w = 4 * (face_w + GAP)
-    net_total_h = 3 * (face_h + GAP)
-    ox = (SVG_WIDTH - net_total_w) // 2
-    oy = 32   # leave room for title
+    net_total_w = 4 * (face_w + GAP * 2)  # increased spacing between faces
+    net_total_h = 3 * (face_h + GAP * 2)
+    ox = (SVG_WIDTH - net_total_w) // 2 + GAP * 2
+    oy = 60   # leave room for title
+
+    face_spacing_x = face_w + GAP * 3
+    face_spacing_y = face_h + GAP * 3
 
     face_positions = {
-        "U": (ox + (face_w + GAP),       oy),
-        "L": (ox,                          oy + face_h + GAP),
-        "F": (ox + (face_w + GAP),        oy + face_h + GAP),
-        "R": (ox + 2 * (face_w + GAP),    oy + face_h + GAP),
-        "B": (ox + 3 * (face_w + GAP),    oy + face_h + GAP),
-        "D": (ox + (face_w + GAP),        oy + 2 * (face_h + GAP)),
+        "U": (ox + face_spacing_x,           oy),
+        "L": (ox,                            oy + face_spacing_y),
+        "F": (ox + face_spacing_x,           oy + face_spacing_y),
+        "R": (ox + 2 * face_spacing_x,       oy + face_spacing_y),
+        "B": (ox + 3 * face_spacing_x,       oy + face_spacing_y),
+        "D": (ox + face_spacing_x,           oy + 2 * face_spacing_y),
     }
 
     svg_parts = [
@@ -189,8 +192,8 @@ def generate_svg(today: date) -> str:
         f'<rect width="100%" height="100%" fill="{BG}"/>',
         f'<style>text {{ font-family: {FONT}; dominant-baseline: text-before-edge; }}</style>',
         # Title
-        f'<text x="10" y="10" font-size="12" fill="{TITLE_COL}">shavi@ShavirPC:</text>',
-        f'<text x="130" y="10" font-size="12" fill="#3a96dd">~$ cube --daily_scramble --date={today}</text>',
+        f'<text x="15" y="15" font-size="14" fill="{TITLE_COL}">shavi@ShavirPC:</text>',
+        f'<text x="165" y="15" font-size="14" fill="#3a96dd">~$ cube --daily_scramble --date={today}</text>',
     ]
 
     # Draw faces
@@ -198,19 +201,19 @@ def generate_svg(today: date) -> str:
         svg_parts.append(draw_face(state[face], fx, fy))
         # Face label
         lx = fx + face_w // 2
-        ly = fy - 4
+        ly = fy - 8
         svg_parts.append(
-            f'<text x="{lx}" y="{ly}" font-size="9" fill="{LABEL_COL}" '
-            f'text-anchor="middle">{face}</text>'
+            f'<text x="{lx}" y="{ly}" font-size="13" fill="{LABEL_COL}" '
+            f'text-anchor="middle" font-weight="bold">{face}</text>'
         )
 
     # Scramble string at bottom — colour-coded
-    scramble_y = oy + net_total_h + 10
-    move_x = 10
+    scramble_y = oy + net_total_h + 20
+    move_x = 15
     svg_parts.append(
-        f'<text x="{move_x}" y="{scramble_y}" font-size="11" fill="{LABEL_COL}">scramble: </text>'
+        f'<text x="{move_x}" y="{scramble_y}" font-size="14" fill="{LABEL_COL}">scramble: </text>'
     )
-    move_x += 72
+    move_x += 90
     for move in scramble:
         if "'" in move:
             col = PRIME_COL
@@ -219,9 +222,9 @@ def generate_svg(today: date) -> str:
         else:
             col = MOVE_COL
         svg_parts.append(
-            f'<text x="{move_x}" y="{scramble_y}" font-size="11" fill="{col}">{escape(move)} </text>'
+            f'<text x="{move_x}" y="{scramble_y}" font-size="14" fill="{col}">{escape(move)} </text>'
         )
-        move_x += len(move) * 8 + 4
+        move_x += len(move) * 9 + 6
 
     svg_parts.append("</svg>")
     return "\n".join(svg_parts)
