@@ -17,8 +17,8 @@ GRID_STROKE = "#1a2025"
 LABEL_COL   = "#7a7a7a"
 TITLE_COL   = "#16c60c"
 MOVE_COL    = "#d4d4d4"
-PRIME_COL   = "#e74856"   # moves with '
-DOUBLE_COL  = "#3a96dd"   # moves with 2
+PRIME_COL   = "#ba8ad6"   # moves with '
+DOUBLE_COL  = "#6ca0c7"   # moves with 2
 
 # Sticker colours per face (solved state)
 FACE_COLORS = {
