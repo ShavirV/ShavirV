@@ -43,7 +43,7 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
-          git add metrics.json neofetch.svg README.md
+          git add metrics.json neofetch.svg cube_scramble.svg README.md
 
           git commit -m "Update neofetch metrics" || exit 0
 
