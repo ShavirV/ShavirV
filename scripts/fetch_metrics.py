@@ -1,4 +1,3 @@
-```python
 import json
 import os
 import time
@@ -275,4 +274,3 @@ print(f"LOC added:    {metrics['loc_added']:,}")
 print(f"LOC removed:  {metrics['loc_removed']:,}")
 print(f"Followers:    {metrics['followers']}")
 print(f"Following:    {metrics['following']}")
-```
