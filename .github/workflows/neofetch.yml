@@ -27,7 +27,7 @@ jobs:
         run: |
           pip install requests
 
-      - name: Test GitHub authentication
+      - name: Test GitHub GraphQL authentication
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
@@ -37,24 +37,37 @@ jobs:
       
           token = os.environ["GITHUB_TOKEN"]
       
-          response = requests.get(
-              "https://api.github.com/user",
+          query = """
+          query {
+            viewer {
+              login
+            }
+            user(login: "ShavirV") {
+              login
+              followers {
+                totalCount
+              }
+            }
+          }
+          """
+      
+          response = requests.post(
+              "https://api.github.com/graphql",
               headers={
                   "Authorization": f"Bearer {token}",
-                  "Accept": "application/vnd.github+json",
+                  "Accept": "application/json",
+                  "Content-Type": "application/json",
               },
+              json={"query": query},
+              timeout=20,
           )
       
           print("HTTP status:", response.status_code)
           print("Rate limit:", response.headers.get("X-RateLimit-Limit"))
           print("Rate remaining:", response.headers.get("X-RateLimit-Remaining"))
-          print("Rate reset:", response.headers.get("X-RateLimit-Reset"))
+          print(response.text)
       
-          if response.ok:
-              print("Authenticated as:", response.json().get("login"))
-          else:
-              print(response.text)
-              raise SystemExit(1)
+          response.raise_for_status()
           PY
 
       - name: Fetch GitHub metrics
