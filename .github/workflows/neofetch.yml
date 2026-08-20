@@ -27,6 +27,36 @@ jobs:
         run: |
           pip install requests
 
+      - name: Test GitHub authentication
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import os
+          import requests
+      
+          token = os.environ["GITHUB_TOKEN"]
+      
+          response = requests.get(
+              "https://api.github.com/user",
+              headers={
+                  "Authorization": f"Bearer {token}",
+                  "Accept": "application/vnd.github+json",
+              },
+          )
+      
+          print("HTTP status:", response.status_code)
+          print("Rate limit:", response.headers.get("X-RateLimit-Limit"))
+          print("Rate remaining:", response.headers.get("X-RateLimit-Remaining"))
+          print("Rate reset:", response.headers.get("X-RateLimit-Reset"))
+      
+          if response.ok:
+              print("Authenticated as:", response.json().get("login"))
+          else:
+              print(response.text)
+              raise SystemExit(1)
+          PY
+
       - name: Fetch GitHub metrics
         run: python scripts/fetch_metrics.py
         env:
