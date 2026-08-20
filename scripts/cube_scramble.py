@@ -89,54 +89,129 @@ def apply_move(state, move):
 
 
 def _apply_single(state, face, ccw=False):
-    """Apply one quarter-turn. ccw=True for counter-clockwise."""
+    """Apply one quarter-turn using standard Singmaster move notation."""
     s = state
 
     if ccw:
+        # Three clockwise turns = one counter-clockwise turn.
         _apply_single(s, face, False)
         _apply_single(s, face, False)
         _apply_single(s, face, False)
         return
 
+    # Rotate the face itself clockwise.
     s[face] = rotate_face_cw(s[face])
 
     if face == "U":
-        tmp = [s["B"][0], s["B"][1], s["B"][2]]
-        s["B"][0], s["B"][1], s["B"][2] = s["R"][0], s["R"][1], s["R"][2]
-        s["R"][0], s["R"][1], s["R"][2] = s["F"][0], s["F"][1], s["F"][2]
-        s["F"][0], s["F"][1], s["F"][2] = s["L"][0], s["L"][1], s["L"][2]
+        # Standard U:
+        # F -> L -> B -> R -> F
+        tmp = [s["F"][0], s["F"][1], s["F"][2]]
+
+        s["F"][0], s["F"][1], s["F"][2] = (
+            s["R"][0], s["R"][1], s["R"][2]
+        )
+
+        s["R"][0], s["R"][1], s["R"][2] = (
+            s["B"][0], s["B"][1], s["B"][2]
+        )
+
+        s["B"][0], s["B"][1], s["B"][2] = (
+            s["L"][0], s["L"][1], s["L"][2]
+        )
+
         s["L"][0], s["L"][1], s["L"][2] = tmp
+
     elif face == "D":
+        # Standard D:
+        # F -> R -> B -> L -> F
         tmp = [s["F"][6], s["F"][7], s["F"][8]]
-        s["F"][6], s["F"][7], s["F"][8] = s["R"][6], s["R"][7], s["R"][8]
-        s["R"][6], s["R"][7], s["R"][8] = s["B"][6], s["B"][7], s["B"][8]
-        s["B"][6], s["B"][7], s["B"][8] = s["L"][6], s["L"][7], s["L"][8]
-        s["L"][6], s["L"][7], s["L"][8] = tmp
+
+        s["F"][6], s["F"][7], s["F"][8] = (
+            s["L"][6], s["L"][7], s["L"][8]
+        )
+
+        s["L"][6], s["L"][7], s["L"][8] = (
+            s["B"][6], s["B"][7], s["B"][8]
+        )
+
+        s["B"][6], s["B"][7], s["B"][8] = (
+            s["R"][6], s["R"][7], s["R"][8]
+        )
+
+        s["R"][6], s["R"][7], s["R"][8] = tmp
+
     elif face == "F":
         tmp = [s["U"][6], s["U"][7], s["U"][8]]
-        s["U"][6], s["U"][7], s["U"][8] = s["L"][8], s["L"][5], s["L"][2]
-        s["L"][2], s["L"][5], s["L"][8] = s["D"][0], s["D"][1], s["D"][2]
-        s["D"][0], s["D"][1], s["D"][2] = s["R"][6], s["R"][3], s["R"][0]
-        s["R"][0], s["R"][3], s["R"][6] = tmp[0], tmp[1], tmp[2]
+
+        s["U"][6], s["U"][7], s["U"][8] = (
+            s["L"][8], s["L"][5], s["L"][2]
+        )
+
+        s["L"][2], s["L"][5], s["L"][8] = (
+            s["D"][0], s["D"][1], s["D"][2]
+        )
+
+        s["D"][0], s["D"][1], s["D"][2] = (
+            s["R"][6], s["R"][3], s["R"][0]
+        )
+
+        s["R"][0], s["R"][3], s["R"][6] = tmp
+
     elif face == "B":
         tmp = [s["U"][0], s["U"][1], s["U"][2]]
-        s["U"][0], s["U"][1], s["U"][2] = s["R"][2], s["R"][5], s["R"][8]
-        s["R"][2], s["R"][5], s["R"][8] = s["D"][8], s["D"][7], s["D"][6]
-        s["D"][6], s["D"][7], s["D"][8] = s["L"][0], s["L"][3], s["L"][6]
-        s["L"][0], s["L"][3], s["L"][6] = tmp[2], tmp[1], tmp[0]
+
+        s["U"][0], s["U"][1], s["U"][2] = (
+            s["R"][2], s["R"][5], s["R"][8]
+        )
+
+        s["R"][2], s["R"][5], s["R"][8] = (
+            s["D"][8], s["D"][7], s["D"][6]
+        )
+
+        s["D"][6], s["D"][7], s["D"][8] = (
+            s["L"][0], s["L"][3], s["L"][6]
+        )
+
+        s["L"][0], s["L"][3], s["L"][6] = (
+            tmp[2], tmp[1], tmp[0]
+        )
+
     elif face == "L":
         tmp = [s["U"][0], s["U"][3], s["U"][6]]
-        s["U"][0], s["U"][3], s["U"][6] = s["B"][8], s["B"][5], s["B"][2]
-        s["B"][2], s["B"][5], s["B"][8] = s["D"][0], s["D"][3], s["D"][6]
-        s["D"][0], s["D"][3], s["D"][6] = s["F"][0], s["F"][3], s["F"][6]
-        s["F"][0], s["F"][3], s["F"][6] = tmp[0], tmp[1], tmp[2]
+
+        s["U"][0], s["U"][3], s["U"][6] = (
+            s["B"][8], s["B"][5], s["B"][2]
+        )
+
+        # Important: D -> B must be reversed.
+        s["B"][2], s["B"][5], s["B"][8] = (
+            s["D"][6], s["D"][3], s["D"][0]
+        )
+
+        s["D"][0], s["D"][3], s["D"][6] = (
+            s["F"][0], s["F"][3], s["F"][6]
+        )
+
+        s["F"][0], s["F"][3], s["F"][6] = tmp
+
     elif face == "R":
         tmp = [s["U"][2], s["U"][5], s["U"][8]]
-        s["U"][2], s["U"][5], s["U"][8] = s["F"][2], s["F"][5], s["F"][8]
-        s["F"][2], s["F"][5], s["F"][8] = s["D"][2], s["D"][5], s["D"][8]
-        s["D"][2], s["D"][5], s["D"][8] = s["B"][6], s["B"][3], s["B"][0]
-        s["B"][0], s["B"][3], s["B"][6] = tmp[2], tmp[1], tmp[0]
 
+        s["U"][2], s["U"][5], s["U"][8] = (
+            s["F"][2], s["F"][5], s["F"][8]
+        )
+
+        s["F"][2], s["F"][5], s["F"][8] = (
+            s["D"][2], s["D"][5], s["D"][8]
+        )
+
+        s["D"][2], s["D"][5], s["D"][8] = (
+            s["B"][6], s["B"][3], s["B"][0]
+        )
+
+        s["B"][0], s["B"][3], s["B"][6] = (
+            tmp[2], tmp[1], tmp[0]
+        )
 
 def scramble_state(scramble: list[str]):
     state = solved_state()
