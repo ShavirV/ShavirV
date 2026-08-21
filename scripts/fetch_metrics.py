@@ -20,7 +20,7 @@ HEADERS = {
 }
 
 # Number of commits used for the LOC calculation per repository.
-COMMITS_PER_REPO = 100
+COMMITS_PER_REPO = 200
 
 # Retry transient GitHub API failures.
 MAX_RETRIES = 3
