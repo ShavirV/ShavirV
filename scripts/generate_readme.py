@@ -8,8 +8,10 @@ FULL_NAME = "Shavir Vallabh"
 HOST = "University of Pretoria"
 
 LANGUAGES = "C, C++, Python, Java, C#, JavaScript/TS, PHP"
-OTHER_LANGS = "HTML/CSS, Bash, Powershell, SQL"
-FRAMEWORKS = "React, NodeJS, Angular, Django"
+OTHER_LANGS = "HTML/CSS, Bash, Powershell, YAML, "
+FRAMEWORKS ="Django, React, NodeJS, Angular"
+DATABASES = "Postgres, MongoDB, Neo4j, SQLite, NXDs"
+SERVER = "Kubernetes, Docker, Ansible, Grafana"
 HOBBIES = "Console Modding, Homebrew, Emulation, HPC"
 
 EMAIL_PERSONAL = "shavirvallabh05@gmail.com"
@@ -152,6 +154,8 @@ def generate_svg(metrics: dict) -> str:
         [("Packages.Programming", COLOR_LABEL), (" : " + LANGUAGES, COLOR_VALUE)],
         [("Packages.General", COLOR_LABEL), (" : " + OTHER_LANGS, COLOR_VALUE)],
         [("Packages.Frameworks", COLOR_LABEL), (" : " + FRAMEWORKS, COLOR_VALUE)],
+        [("Packages.Databases", COLOR_LABEL), (" : " + DATABASES, COLOR_VALUE)],
+        [("Packages.Server", COLOR_LABEL), (" : " + SERVER, COLOR_VALUE)],
         [("Hobbies", COLOR_LABEL), (" : " + HOBBIES, COLOR_VALUE)],
 
         [("\n", COLOR_MUTED)],
